@@ -1,0 +1,551 @@
+import React, { useState, useEffect, useRef } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "../lib/firebase";
+import { motion, AnimatePresence } from "motion/react";
+
+const CATEGORIES = [
+  { id: "WORKOUT", label: "🏋 Workout" },
+  { id: "NUTRITION", label: "🥗 Nutrition" },
+  { id: "FAT_LOSS", label: "🔥 Fat Loss" },
+  { id: "MUSCLE_BUILDING", label: "💪 Muscle Building" },
+  { id: "RECOVERY", label: "😴 Recovery" },
+  { id: "SUPPLEMENTS", label: "💊 Supplements" },
+  { id: "MIND_DISCIPLINE", label: "🧘 Mind & Discipline" },
+  { id: "INDIAN_DIET", label: "🍛 Indian Diet" },
+];
+
+const QUESTIONS_MAP = {
+  WORKOUT: [
+    "How many sets per muscle group per week?",
+    "What is the best split for muscle gain?",
+    "How long should I rest between sets?",
+    "Should I train to failure every set?"
+  ],
+  NUTRITION: [
+    "How much protein do I need daily?",
+    "What should I eat before a workout?",
+    "What should I eat after a workout?",
+    "How do I calculate my calorie deficit?"
+  ],
+  FAT_LOSS: [
+    "How do I break a fat loss plateau?",
+    "Is cardio necessary for fat loss?",
+    "What is the best deficit for fat loss?",
+    "Can I lose fat and build muscle together?"
+  ],
+  MUSCLE_BUILDING: [
+    "How much of a calorie surplus should I eat?",
+    "How long does it take to see muscle gain?",
+    "Should I bulk or cut first as a beginner?",
+    "What is progressive overload?"
+  ],
+  RECOVERY: [
+    "How much sleep do I need for muscle growth?",
+    "How do I reduce muscle soreness faster?",
+    "Should I train when sore?",
+    "How important is the rest day?"
+  ],
+  SUPPLEMENTS: [
+    "Is creatine safe for beginners?",
+    "Do I need a protein supplement?",
+    "What supplements actually work?",
+    "When should I take creatine?"
+  ],
+  MIND_DISCIPLINE: [
+    "How do I stay consistent with workouts?",
+    "How do I build a fitness habit?",
+    "What to do when I feel like quitting?",
+    "How do I get motivated to work out?"
+  ],
+  INDIAN_DIET: [
+    "How to get enough protein on a veg diet?",
+    "Is dal and rice good for muscle building?",
+    "Best Indian foods for fat loss?",
+    "How to eat healthy on a tight budget?"
+  ]
+};
+
+export default function FitnessChat() {
+  const [activeCategory, setActiveCategory] = useState("WORKOUT");
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [questionsUsed, setQuestionsUsed] = useState(0);
+  const [loadedDate, setLoadedDate] = useState("");
+  const [thinkingMode, setThinkingMode] = useState(false);
+  const [limit] = useState(10);
+  const [isLimitFetched, setIsLimitFetched] = useState(false);
+  const threadEndRef = useRef(null);
+
+  // Get local timezone-safe date string YYYY-MM-DD
+  const getLocalDateString = () => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Fetch / Setup Usage limit on auth load or mount
+  useEffect(() => {
+    const fetchUsage = async () => {
+      const todayStr = getLocalDateString();
+      const user = auth.currentUser;
+      if (!user) {
+        setLoadedDate(todayStr);
+        setIsLimitFetched(true);
+        return;
+      }
+
+      setLoadedDate(todayStr);
+      try {
+        const usageDocRef = doc(db, "chatUsage", user.uid);
+        const usageSnap = await getDoc(usageDocRef);
+
+        if (usageSnap.exists()) {
+          const data = usageSnap.data();
+          if (data.date === todayStr) {
+            setQuestionsUsed(data.questionsUsed || 0);
+          } else {
+            // Reset daily count for a new calendar day
+            await setDoc(usageDocRef, {
+              date: todayStr,
+              questionsUsed: 0,
+              limit: 10
+            }, { merge: true });
+            setQuestionsUsed(0);
+          }
+        } else {
+          // Document doesn't exist yet, initialize it
+          await setDoc(usageDocRef, {
+            date: todayStr,
+            questionsUsed: 0,
+            limit: 10
+          });
+          setQuestionsUsed(0);
+        }
+      } catch (err) {
+        console.warn("Error loading chat limit usage:", err);
+      } finally {
+        setIsLimitFetched(true);
+      }
+    };
+
+    if (auth.currentUser) {
+      fetchUsage();
+    }
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchUsage();
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Periodically and on-focus check for date transition to reset stale questionsUsed counter without requiring refresh
+  useEffect(() => {
+    const handleFocusAndCheck = async () => {
+      const user = auth.currentUser;
+      if (!user || !loadedDate) return;
+      
+      const todayStr = getLocalDateString();
+      if (loadedDate !== todayStr) {
+        setLoadedDate(todayStr);
+        setQuestionsUsed(0);
+        try {
+          await setDoc(doc(db, "chatUsage", user.uid), {
+            date: todayStr,
+            questionsUsed: 0,
+            limit: 10
+          }, { merge: true });
+        } catch (err) {
+          console.warn("Error resetting usage on focus transition:", err);
+        }
+      }
+    };
+
+    window.addEventListener("focus", handleFocusAndCheck);
+    const interval = setInterval(handleFocusAndCheck, 15000); // Check every 15 seconds
+
+    return () => {
+      window.removeEventListener("focus", handleFocusAndCheck);
+      clearInterval(interval);
+    };
+  }, [loadedDate]);
+
+  // Smooth auto-scroll behavior for the message thread
+  useEffect(() => {
+    threadEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
+  // Handle Suggested Chip Taps
+  const handleChipTap = (question) => {
+    setInput(question);
+  };
+
+  // Handle submit query
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+
+    const user = auth.currentUser;
+    const todayStr = getLocalDateString();
+    let currentQuestionsUsed = questionsUsed;
+
+    // Direct check for date transition right before query submission
+    if (loadedDate && loadedDate !== todayStr) {
+      currentQuestionsUsed = 0;
+      setQuestionsUsed(0);
+      setLoadedDate(todayStr);
+      if (user) {
+        try {
+          await setDoc(doc(db, "chatUsage", user.uid), {
+            date: todayStr,
+            questionsUsed: 0,
+            limit: 10
+          }, { merge: true });
+        } catch (err) {
+          console.warn("Error resetting usage on submission transition:", err);
+        }
+      }
+    }
+
+    if (!input.trim() || loading) return;
+    if (currentQuestionsUsed >= limit) {
+      setErrorMsg("Daily question limit reached. Refreshes at midnight.");
+      return;
+    }
+
+    const currentQuery = input.trim();
+    setInput("");
+    setErrorMsg("");
+
+    // Add user message to local state
+    const userMsg = { role: "user", text: currentQuery };
+    setMessages(prev => [...prev, userMsg]);
+    setLoading(true);
+
+    try {
+      // Keep last 6 messages in history for conversation state
+      const chatHistory = messages.map(msg => ({
+        role: msg.role,
+        text: msg.text
+      }));
+
+      const res = await fetch("/api/fitness-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: currentQuery,
+          history: chatHistory,
+          thinkingMode: thinkingMode
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to contact Gemini endpoint.");
+      }
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      const aiText = data.response;
+
+      // Update count in Firestore only after a successful call
+      const newCount = currentQuestionsUsed + 1;
+      if (user) {
+        try {
+          await setDoc(doc(db, "chatUsage", user.uid), {
+            date: todayStr,
+            questionsUsed: newCount
+          }, { merge: true });
+        } catch (saveErr) {
+          console.warn("Notice updating chat usage:", saveErr);
+        }
+      }
+
+      setQuestionsUsed(newCount);
+
+      // Append AI reply to thread
+      setMessages(prev => [...prev, { role: "model", text: aiText }]);
+    } catch (err) {
+      console.warn("SHAT AI Chat failure:", err);
+      setErrorMsg("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Progress Bar Configuration
+  const progressPercent = Math.min((questionsUsed / limit) * 100, 100);
+  
+  let fillBgColor = "bg-[#B76E79]"; // Default Accent Rose Gold
+  if (questionsUsed >= 10) {
+    fillBgColor = "bg-[rgba(255,100,100,0.6)]"; // Red for limit reached
+  } else if (questionsUsed >= 8) {
+    fillBgColor = "bg-[#F4A011]"; // Yellow warning
+  }
+
+  return (
+    <div 
+      className="w-full bg-[#1B2A3E] rounded-[14px] p-4 sm:p-6 flex flex-col gap-6 shadow-2xl relative"
+      style={{
+        border: "0.5px solid rgba(183,110,121,0.25)",
+        maxWidth: "780px",
+        margin: "0 auto"
+      }}
+    >
+      {/* Header with Title and Daily Limits */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#B76E79]/15 pb-4">
+        <div>
+          <h3 
+            className="font-light text-[22px] text-[#F2E6E9] uppercase tracking-wide leading-tight" 
+            style={{ fontFamily: "serif" }}
+          >
+            SHAT Coach Core
+          </h3>
+          <span className="text-[12px] font-sans font-normal text-white/40 block mt-0.5">
+            Science, Honesty, Adaptation, Transformation
+          </span>
+        </div>
+
+        {isLimitFetched && (
+          <div className="w-full sm:w-auto flex flex-col items-end gap-1.5 min-w-[150px]">
+            <div className="text-[11px] font-sans text-[#F2E6E9]/35 tracking-wide uppercase">
+              {questionsUsed} / {limit} questions used today
+            </div>
+            
+            {/* Progress bar */}
+            <div className="w-full h-[2px] bg-[#B76E79]/15 rounded-[1px] overflow-hidden">
+              <div 
+                className={`h-full ${fillBgColor} transition-all duration-500`}
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+
+            {questionsUsed >= limit && (
+              <span className="text-[12px] text-[#B76E79]/55 italic font-sans mt-0.5">
+                Daily limit reached. Come back tomorrow.
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* QUICK OPTION BUTTONS (Category Navigation) */}
+      <div className="flex flex-wrap gap-1 justify-center border-b border-[#B76E79]/10 pb-4">
+        {CATEGORIES.map((cat) => {
+          const isActive = activeCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className="transition-all duration-300 select-none"
+              style={{
+                background: isActive ? "#B76E79" : "rgba(27,42,62,0.8)",
+                border: isActive ? "0.5px solid #B76E79" : "0.5px solid rgba(183,110,121,0.25)",
+                borderRadius: "20px",
+                padding: "10px 18px",
+                fontSize: "12px",
+                fontFamily: "sans-serif",
+                color: isActive ? "#0D1B2A" : "rgba(242,230,233,0.55)",
+                fontWeight: isActive ? "600" : "400",
+                margin: "4px",
+                cursor: "pointer"
+              }}
+            >
+              {cat.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* SUGGESTED QUESTIONS PER CATEGORY */}
+      <div className="min-h-[50px] flex flex-col justify-center items-center py-1">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.2 } }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            className="flex flex-wrap gap-2 justify-center"
+          >
+            {QUESTIONS_MAP[activeCategory]?.map((q, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleChipTap(q)}
+                className="transition-all duration-300 select-none cursor-pointer"
+                style={{
+                  background: "rgba(183,110,121,0.08)",
+                  border: "0.5px solid rgba(183,110,121,0.25)",
+                  borderRadius: "20px",
+                  padding: "8px 16px",
+                  fontSize: "12px",
+                  fontFamily: "sans-serif",
+                  color: "rgba(242,230,233,0.55)"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "#B76E79";
+                  e.currentTarget.style.color = "#F2E6E9";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(183,110,121,0.25)";
+                  e.currentTarget.style.color = "rgba(242,230,233,0.55)";
+                }}
+              >
+                {q}
+              </button>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* MESSAGE THREAD AREA */}
+      <div 
+        className="overflow-y-auto pr-2 flex flex-col gap-4 scrollbar-thin scrollbar-thumb-[#B76E79]/15"
+        style={{
+          maxHeight: "440px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px"
+        }}
+      >
+        {messages.length === 0 ? (
+          <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-16">
+            <div className="w-12 h-12 rounded-full border border-[#B76E79]/20 flex items-center justify-center text-[#B76E79] text-lg select-none">
+              ✨
+            </div>
+            <div className="max-w-md">
+              <p className="text-sm text-[#F2E6E9]/45 font-sans tracking-wide uppercase leading-relaxed">
+                Select a quick topic above or ask custom questions.
+              </p>
+              <p className="text-[10px] text-[#B76E79]/50 tracking-[0.2em] font-sans font-medium uppercase mt-2">
+                SHAT AI: Grounded in Scientific Truth
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {messages.map((msg, idx) => {
+              const isUser = msg.role === "user";
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    alignSelf: isUser ? "flex-end" : "flex-start",
+                    background: isUser ? "rgba(183,110,121,0.15)" : "rgba(13,27,42,0.8)",
+                    border: isUser ? "0.5px solid rgba(183,110,121,0.3)" : "0.5px solid rgba(183,110,121,0.15)",
+                    borderRadius: isUser ? "12px 12px 2px 12px" : "2px 12px 12px 12px",
+                    padding: "12px 16px",
+                    color: "#F2E6E9",
+                    fontSize: "14px",
+                    maxWidth: isUser ? "85%" : "88%",
+                    wordBreak: "break-word"
+                  }}
+                >
+                  <p className="font-sans leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                </div>
+              );
+            })}
+
+            {/* Thinking / Loading indicator */}
+            {loading && (
+              <div 
+                style={{
+                  alignSelf: "flex-start",
+                  color: "#B76E79",
+                  fontSize: "20px"
+                }}
+                className="flex items-center gap-1 px-4 py-2"
+              >
+                <span className="animate-bounce" style={{ animationDelay: "0s" }}>•</span>
+                <span className="animate-bounce" style={{ animationDelay: "0.15s" }}>•</span>
+                <span className="animate-bounce" style={{ animationDelay: "0.3s" }}>•</span>
+              </div>
+            )}
+
+            <div ref={threadEndRef} />
+          </div>
+        )}
+      </div>
+
+      {/* INPUT FORM ROW */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        {/* Thinking Mode Toggle */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-1 mb-1">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setThinkingMode(!thinkingMode)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] transition-all duration-300 border text-[11px] cursor-pointer"
+              style={{
+                background: thinkingMode ? "rgba(183,110,121,0.18)" : "rgba(13,27,42,0.5)",
+                borderColor: thinkingMode ? "#B76E79" : "rgba(183,110,121,0.2)",
+                color: thinkingMode ? "#F2E6E9" : "rgba(242,230,233,0.4)"
+              }}
+            >
+              <span>🧠</span>
+              <span className="font-sans font-medium tracking-[0.05em] uppercase">
+                Deep Reason {thinkingMode ? "ON" : "OFF"}
+              </span>
+            </button>
+            <span className="text-[11px] text-[#F2E6E9]/35 font-sans">
+              Uses high-thinking Gemini 3.1 Pro for reasoning complex nutrition/exercise science queries.
+            </span>
+          </div>
+        </div>
+
+        <div className="flex gap-2.5 items-center">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={questionsUsed >= limit || loading}
+            placeholder="Ask anything about fitness..."
+            className="flex-1 transition-all duration-300"
+            style={{
+              background: "rgba(13,27,42,0.7)",
+              border: "0.5px solid rgba(183,110,121,0.3)",
+              borderRadius: "10px",
+              padding: "12px 16px",
+              color: "#F2E6E9",
+              fontSize: "14px",
+              outline: "none"
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "#B76E79";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "rgba(183,110,121,0.3)";
+            }}
+          />
+          <button
+            type="submit"
+            disabled={questionsUsed >= limit || loading || !input.trim()}
+            className="transition-all duration-300 font-sans tracking-wide"
+            style={{
+              background: (questionsUsed >= limit || loading || !input.trim()) ? "rgba(183,110,121,0.12)" : "#B76E79",
+              color: (questionsUsed >= limit || loading || !input.trim()) ? "rgba(242,230,233,0.2)" : "#0D1B2A",
+              borderRadius: "10px",
+              padding: "12px 20px",
+              fontSize: "13px",
+              cursor: (questionsUsed >= limit || loading || !input.trim()) ? "not-allowed" : "pointer"
+            }}
+          >
+            Ask &rarr;
+          </button>
+        </div>
+
+        {errorMsg && (
+          <div className="text-xs text-[rgba(255,100,100,0.65)] font-sans mt-0.5 ml-1">
+            {errorMsg}
+          </div>
+        )}
+      </form>
+    </div>
+  );
+}

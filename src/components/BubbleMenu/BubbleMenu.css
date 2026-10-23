@@ -1,0 +1,200 @@
+/* BubbleMenu.css */
+
+.bubble-menu-wrapper {
+  z-index: 9999;
+}
+
+.bubble-menu-wrapper.fixed-pos {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+.bubble-menu-wrapper.absolute-pos {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .bubble-menu-wrapper.fixed-pos {
+    top: 1.25rem;
+    right: 1.5rem;
+  }
+  .bubble-menu-wrapper.absolute-pos {
+    top: 1.25rem;
+    right: 1.5rem;
+  }
+}
+
+/* TRIGGER BUBBLE TRIGGER */
+.bubble-trigger {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10001;
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (min-width: 640px) {
+  .bubble-trigger {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+.bubble-trigger:hover {
+  transform: scale(1.05) translateZ(0);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.bubble-trigger:active {
+  transform: scale(0.95) translateZ(0);
+}
+
+/* Burger Menu Icon Animation */
+.burger-icon {
+  width: 1.25rem;
+  height: 9px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .burger-icon {
+    width: 1.5rem;
+    height: 10px;
+  }
+}
+
+.burger-icon .line {
+  width: 100%;
+  height: 1px;
+  border-radius: 1px;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.bubble-trigger.active .line-1 {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.bubble-trigger.active .line-2 {
+  opacity: 0;
+}
+
+.bubble-trigger.active .line-3 {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* OVERLAY PANEL */
+.bubble-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  will-change: transform, opacity;
+  transform-origin: top right;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+/* LOGO IN OVERLAY */
+.bubble-menu-logo-wrapper {
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  animation: logo-subtle-pulse 4s ease-in-out infinite alternate;
+}
+
+@media (min-width: 640px) {
+  .bubble-menu-logo-wrapper {
+    margin-bottom: 3rem;
+  }
+}
+
+@keyframes logo-subtle-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.02); }
+}
+
+/* MENU ITEMS CONTAINER */
+.bubble-menu-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .bubble-menu-items {
+    gap: 1.5rem;
+  }
+}
+
+/* PILL LINK STYLING */
+.pill-link {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  padding: 0.6rem 1.75rem;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  background-color: transparent;
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: inline-block;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .pill-link {
+    font-size: 1.15rem;
+    padding: 0.75rem 2.25rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+.pill-link:hover {
+  background-color: var(--hover-bg) !important;
+  color: var(--hover-color) !important;
+  border-color: var(--hover-bg) !important;
+  transform: scale(1.05) rotate(0deg) !important;
+}
+
+/* APPENDED LINES (DO NOT MODIFY OR REMOVE) */
+.bubble-menu .bubble,
+.bubble-menu-items .pill-link {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

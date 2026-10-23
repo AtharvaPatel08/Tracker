@@ -1,0 +1,8 @@
+{
+  "name": "Remix: mėntality",
+  "description": "A cinematic mental health platform offering premium resources and interactive tools to help you manage your personal wellbeing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

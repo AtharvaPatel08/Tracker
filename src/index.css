@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-shat-main: "Playfair Display", serif;
+  --font-shat-tagline: "Playfair Display", serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --animate-platinum-pulse: platinumPulse 2s infinite;
+}
+
+@keyframes platinumPulse {
+  0% { box-shadow: 0 0 0 0 rgba(183, 110, 121, 0.1); }
+  70% { box-shadow: 0 0 0 8px rgba(183, 110, 121, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(183, 110, 121, 0); }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  body {
+    background-color: #0D1B2A;
+    color: #F2E6E9;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: #B76E79;
+    color: #0D1B2A;
+  }
+
+  /* Custom scrollbar for boutique midnight navy theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D1B2A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1B2A3E;
+    border-radius: 0px;
+    border: 1px solid rgba(183, 110, 121, 0.15);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #141414;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-platinum-pulse {
+  animation: platinumPulse 2s infinite;
+}
+
+/* HIGH-FASHION BOUTIQUE THEME DASHBOARD OVERRIDES */
+.shat-dashboard-wrapper,
+.fixed.inset-0.bg-black\/85 {
+  /* Panel and Surfaces backgrounds */
+  --color-surface-navy: #1B2A3E;
+  --color-dark-navy: #0D1B2A;
+  --color-rose-gold: #B76E79;
+  --color-blush: #F2E6E9;
+  --color-sand: #E8D5B7;
+}
+
+/* Override background colors of panels/cards */
+.shat-dashboard-wrapper aside.bg-\[\#0F0F0F\]\/95 {
+  background-color: rgba(27, 42, 62, 0.95) !important;
+  border-color: rgba(183, 110, 121, 0.2) !important;
+}
+
+.shat-dashboard-wrapper .bg-\[\#0F0F0F\],
+.fixed.inset-0 .bg-\[\#0F0F0F\] {
+  background-color: #1B2A3E !important;
+  border-color: rgba(183, 110, 121, 0.2) !important;
+  backdrop-filter: blur(12px);
+}
+
+.shat-dashboard-wrapper .bg-\[\#0A0A0A\],
+.fixed.inset-0 .bg-\[\#0A0A0A\] {
+  background-color: #0D1B2A !important;
+  border-color: rgba(183, 110, 121, 0.15) !important;
+}
+
+.shat-dashboard-wrapper .bg-[#070707]/90 {
+  background-color: rgba(13, 27, 42, 0.95) !important;
+  border-color: rgba(183, 110, 121, 0.2) !important;
+}
+
+/* Target element text updates */
+.shat-dashboard-wrapper .text-white,
+.fixed.inset-0 .text-white {
+  color: #F2E6E9 !important;
+}
+
+.shat-dashboard-wrapper .text-\[\#A8A8A8\],
+.shat-dashboard-wrapper .text-neutral-400,
+.fixed.inset-0 .text-\[\#A8A8A8\] {
+  color: #E8D5B7 !important;
+  opacity: 0.85;
+}
+
+.shat-dashboard-wrapper .text-\[\#555555\],
+.fixed.inset-0 .text-\[\#555555\] {
+  color: #B76E79 !important;
+  opacity: 0.7;
+}
+
+/* Border overrides */
+.shat-dashboard-wrapper .border-white\/6,
+.shat-dashboard-wrapper .border-white\/10,
+.shat-dashboard-wrapper .border-white\/15,
+.shat-dashboard-wrapper .border-white\/20,
+.shat-dashboard-wrapper .border-b.border-white\/6,
+.fixed.inset-0 .border-white\/6,
+.fixed.inset-0 .border-white\/10 {
+  border-color: rgba(183, 110, 121, 0.15) !important;
+}
+
+/* Button overrides */
+.shat-dashboard-wrapper .bg-white,
+.fixed.inset-0 .bg-white {
+  background-color: #B76E79 !important;
+  color: #0D1B2A !important;
+}
+
+.shat-dashboard-wrapper .bg-white\/4,
+.shat-dashboard-wrapper .hover\:bg-white\/4:hover {
+  background-color: rgba(183, 110, 121, 0.08) !important;
+}
+
+.shat-dashboard-wrapper .hover\:bg-white:hover {
+  background-color: #a25c67 !important;
+  color: #0D1B2A !important;
+}
+
+.shat-dashboard-wrapper .text-\[\#070707\] {
+  color: #0D1B2A !important;
+}
+
+/* Active range sliders and active progress meters */
+.shat-dashboard-wrapper .accent-white {
+  accent-color: #B76E79 !important;
+}
+
+.shat-dashboard-wrapper .bg-gradient-to-r.from-\[\#555555\].to-white {
+  background-image: linear-gradient(to right, #B76E79, #F2E6E9) !important;
+}
+
+/* Cinematic Blinking Cursor Animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+
+
+
