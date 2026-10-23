@@ -803,8 +803,8 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
                     onClick={() => toggleMultiSelect(opt.value)}
                     className={`px-4 py-2.5 rounded-none text-xs font-sans tracking-widest uppercase transition-all duration-300 border cursor-pointer ${
                       isSel 
-                        ? "bg-[#B76E79] border-[#B76E79] text-[#0D1B2A] font-normal" 
-                        : "bg-transparent border-[#B76E79]/20 text-[#E8D5B7]/80 hover:border-[#B76E79]/50 hover:text-[#F2E6E9]"
+                        ? "bg-white border-white text-black font-semibold" 
+                        : "bg-[#141414] border-white/15 text-zinc-300 hover:border-white hover:text-white"
                     }`}
                   >
                     {opt.label}
@@ -814,7 +814,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
             </div>
             <button
               onClick={handleMultiSelectSubmit}
-              className="w-full sm:w-auto self-start px-6 py-3 rounded-none bg-transparent border border-[#B76E79]/45 text-[#E8D5B7] hover:bg-[#B76E79] hover:text-[#0D1B2A] font-sans font-normal text-[11px] tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer"
+              className="w-full sm:w-auto self-start px-6 py-3 rounded-none bg-transparent border border-white/30 text-white hover:bg-white hover:text-black font-sans font-normal text-[11px] tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer"
             >
               SUBMIT SELECTIONS &rarr;
             </button>
@@ -828,10 +828,10 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
               <button
                 key={opt.value}
                 onClick={() => handleInputSubmit(opt.label, opt.value)}
-                className="w-full text-left px-5 py-4 rounded-none bg-transparent border border-[#B76E79]/15 hover:border-[#B76E79]/50 text-xs font-sans font-light text-[#E8D5B7]/90 tracking-wider transition-all duration-300 hover:bg-[#B76E79]/5 flex items-center justify-between group cursor-pointer"
+                className="w-full text-left px-5 py-4 rounded-none bg-[#141414] border border-white/10 hover:border-white text-xs font-sans font-light text-zinc-300 tracking-wider transition-all duration-300 hover:bg-[#1a1a1a] hover:text-white flex items-center justify-between group cursor-pointer"
               >
                 <span>{opt.label}</span>
-                <ArrowRight className="w-4 h-4 text-[#B76E79]/60 group-hover:text-[#F2E6E9] group-hover:translate-x-1 transition-all duration-300" />
+                <ArrowRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
               </button>
             ))}
           </div>
@@ -851,11 +851,11 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
                   handleInputSubmit(userInput);
                 }
               }}
-              className="w-full border-b border-[#B76E79]/30 bg-transparent text-[#F2E6E9] focus:border-[#B76E79] focus:outline-none py-3 font-serif text-[18px] sm:text-[22px] md:text-[24px] tracking-wide placeholder-[#F2E6E9]/15 resize-none leading-relaxed"
+              className="w-full border-b border-white/20 bg-transparent text-white focus:border-white focus:outline-none py-3 font-serif text-[18px] sm:text-[22px] md:text-[24px] tracking-wide placeholder-zinc-600 resize-none leading-relaxed"
             />
             <button
               onClick={() => handleInputSubmit(userInput)}
-              className="w-full sm:w-auto self-start px-6 py-3 rounded-none bg-transparent border border-[#B76E79]/45 text-[#E8D5B7] font-sans font-normal text-[11px] tracking-[0.25em] uppercase hover:bg-[#B76E79] hover:text-[#0D1B2A] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto self-start px-6 py-3 rounded-none bg-transparent border border-white/30 text-white font-sans font-normal text-[11px] tracking-[0.25em] uppercase hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>TRANSMIT DEEP ANALYSIS</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -876,11 +876,11 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
                   handleInputSubmit(userInput);
                 }
               }}
-              className="flex-1 border-b border-[#B76E79]/30 bg-transparent text-[#F2E6E9] focus:border-[#B76E79] focus:outline-none py-3 font-serif text-[18px] sm:text-[22px] md:text-[24px] tracking-wide placeholder-[#F2E6E9]/15"
+              className="flex-1 border-b border-white/20 bg-transparent text-white focus:border-white focus:outline-none py-3 font-serif text-[18px] sm:text-[22px] md:text-[24px] tracking-wide placeholder-zinc-600"
             />
             <button
               onClick={() => handleInputSubmit(userInput)}
-              className="px-6 py-4 rounded-none bg-transparent border border-[#B76E79]/45 text-[#E8D5B7] hover:bg-[#B76E79] hover:text-[#0D1B2A] transition-all duration-300 flex items-center justify-center cursor-pointer font-sans text-xs tracking-widest uppercase"
+              className="px-6 py-4 rounded-none bg-transparent border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center cursor-pointer font-sans text-xs tracking-widest uppercase"
             >
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -902,12 +902,12 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
           return (
             <div key={bIdx} className="w-full flex flex-col items-start">
               {/* OVERLINE LABEL */}
-              <div className={`text-[10px] tracking-[0.22em] uppercase font-sans font-medium text-[#B76E79] mb-1.5 ${isLastBlock ? "active-animate-target" : ""}`}>
+              <div className={`text-[10px] tracking-[0.22em] uppercase font-sans font-medium text-zinc-400 mb-1.5 ${isLastBlock ? "active-animate-target" : ""}`}>
                 {block.overline}
               </div>
               
               {/* QUESTION LINE */}
-              <div className={`text-[13px] tracking-[0.06em] font-sans text-[#F2E6E9]/40 mb-[20px] ${isLastBlock ? "active-animate-target" : ""}`}>
+              <div className={`text-[13px] tracking-[0.06em] font-sans text-zinc-500 mb-[20px] ${isLastBlock ? "active-animate-target" : ""}`}>
                 {block.question}
               </div>
               
@@ -923,12 +923,12 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
                       className={`font-serif text-[20px] min-[400px]:text-[22px] sm:text-[26px] md:text-[28px] font-normal leading-[1.35] text-left inline-flex items-center flex-wrap ${
                         isLastBlock ? "active-animate-target" : ""
                       } ${
-                        isFirstTwo ? "text-[#F2E6E9]" : "text-[#E8D5B7]/45"
+                        isFirstTwo ? "text-white" : "text-zinc-400"
                       }`}
                     >
                       {line}
                       {isAbsoluteLastLine && !block.isCompleted && (
-                        <span className="inline-block w-[2px] h-[26px] bg-[#B76E79] ml-1.5 animate-blink" />
+                        <span className="inline-block w-[2px] h-[26px] bg-white ml-1.5 animate-blink" />
                       )}
                     </span>
                   );
@@ -944,7 +944,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
 
               {/* THIN HORIZONTAL RULE */}
               {!isLastBlock && (
-                <div className="w-10 h-[1px] bg-[#B76E79]/50 my-6" />
+                <div className="w-10 h-[1px] bg-white/20 my-6" />
               )}
             </div>
           );

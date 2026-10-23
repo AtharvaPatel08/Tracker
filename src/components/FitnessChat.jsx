@@ -283,44 +283,44 @@ export default function FitnessChat() {
   // Progress Bar Configuration
   const progressPercent = Math.min((questionsUsed / limit) * 100, 100);
   
-  let fillBgColor = "bg-[#B76E79]"; // Default Accent Rose Gold
+  let fillBgColor = "bg-white"; // Crisp white accent
   if (questionsUsed >= 10) {
-    fillBgColor = "bg-[rgba(255,100,100,0.6)]"; // Red for limit reached
+    fillBgColor = "bg-red-500/80"; // Red for limit reached
   } else if (questionsUsed >= 8) {
-    fillBgColor = "bg-[#F4A011]"; // Yellow warning
+    fillBgColor = "bg-amber-400"; // Warning
   }
 
   return (
     <div 
-      className="w-full bg-[#1B2A3E] rounded-[14px] p-4 sm:p-6 flex flex-col gap-6 shadow-2xl relative"
+      className="w-full bg-[#121212] rounded-[14px] p-4 sm:p-6 flex flex-col gap-6 shadow-2xl relative"
       style={{
-        border: "0.5px solid rgba(183,110,121,0.25)",
+        border: "1px solid rgba(255,255,255,0.1)",
         maxWidth: "780px",
         margin: "0 auto"
       }}
     >
       {/* Header with Title and Daily Limits */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#B76E79]/15 pb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
         <div>
           <h3 
-            className="font-light text-[22px] text-[#F2E6E9] uppercase tracking-wide leading-tight" 
+            className="font-light text-[22px] text-white uppercase tracking-wide leading-tight" 
             style={{ fontFamily: "serif" }}
           >
             SHAT Coach Core
           </h3>
-          <span className="text-[12px] font-sans font-normal text-white/40 block mt-0.5">
+          <span className="text-[12px] font-sans font-normal text-zinc-400 block mt-0.5">
             Science, Honesty, Adaptation, Transformation
           </span>
         </div>
 
         {isLimitFetched && (
           <div className="w-full sm:w-auto flex flex-col items-end gap-1.5 min-w-[150px]">
-            <div className="text-[11px] font-sans text-[#F2E6E9]/35 tracking-wide uppercase">
+            <div className="text-[11px] font-sans text-zinc-400 tracking-wide uppercase">
               {questionsUsed} / {limit} questions used today
             </div>
             
             {/* Progress bar */}
-            <div className="w-full h-[2px] bg-[#B76E79]/15 rounded-[1px] overflow-hidden">
+            <div className="w-full h-[2px] bg-white/10 rounded-[1px] overflow-hidden">
               <div 
                 className={`h-full ${fillBgColor} transition-all duration-500`}
                 style={{ width: `${progressPercent}%` }}
@@ -328,7 +328,7 @@ export default function FitnessChat() {
             </div>
 
             {questionsUsed >= limit && (
-              <span className="text-[12px] text-[#B76E79]/55 italic font-sans mt-0.5">
+              <span className="text-[12px] text-zinc-400 italic font-sans mt-0.5">
                 Daily limit reached. Come back tomorrow.
               </span>
             )}
@@ -337,25 +337,24 @@ export default function FitnessChat() {
       </div>
 
       {/* QUICK OPTION BUTTONS (Category Navigation) */}
-      <div className="flex flex-wrap gap-1 justify-center border-b border-[#B76E79]/10 pb-4">
+      <div className="flex flex-wrap gap-1 justify-center border-b border-white/10 pb-4">
         {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat.id;
           return (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className="transition-all duration-300 select-none"
+              className="transition-all duration-300 select-none cursor-pointer"
               style={{
-                background: isActive ? "#B76E79" : "rgba(27,42,62,0.8)",
-                border: isActive ? "0.5px solid #B76E79" : "0.5px solid rgba(183,110,121,0.25)",
+                background: isActive ? "#FFFFFF" : "#181818",
+                border: isActive ? "1px solid #FFFFFF" : "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "20px",
-                padding: "10px 18px",
+                padding: "8px 16px",
                 fontSize: "12px",
                 fontFamily: "sans-serif",
-                color: isActive ? "#0D1B2A" : "rgba(242,230,233,0.55)",
+                color: isActive ? "#0A0A0A" : "#A1A1AA",
                 fontWeight: isActive ? "600" : "400",
-                margin: "4px",
-                cursor: "pointer"
+                margin: "3px"
               }}
             >
               {cat.label}
@@ -380,21 +379,23 @@ export default function FitnessChat() {
                 onClick={() => handleChipTap(q)}
                 className="transition-all duration-300 select-none cursor-pointer"
                 style={{
-                  background: "rgba(183,110,121,0.08)",
-                  border: "0.5px solid rgba(183,110,121,0.25)",
+                  background: "#161616",
+                  border: "1px solid rgba(255,255,255,0.1)",
                   borderRadius: "20px",
                   padding: "8px 16px",
                   fontSize: "12px",
                   fontFamily: "sans-serif",
-                  color: "rgba(242,230,233,0.55)"
+                  color: "#A1A1AA"
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#B76E79";
-                  e.currentTarget.style.color = "#F2E6E9";
+                  e.currentTarget.style.borderColor = "#FFFFFF";
+                  e.currentTarget.style.color = "#FFFFFF";
+                  e.currentTarget.style.background = "#222222";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(183,110,121,0.25)";
-                  e.currentTarget.style.color = "rgba(242,230,233,0.55)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                  e.currentTarget.style.color = "#A1A1AA";
+                  e.currentTarget.style.background = "#161616";
                 }}
               >
                 {q}
@@ -406,7 +407,7 @@ export default function FitnessChat() {
 
       {/* MESSAGE THREAD AREA */}
       <div 
-        className="overflow-y-auto pr-2 flex flex-col gap-4 scrollbar-thin scrollbar-thumb-[#B76E79]/15"
+        className="overflow-y-auto pr-2 flex flex-col gap-4 scrollbar-thin scrollbar-thumb-white/10"
         style={{
           maxHeight: "440px",
           display: "flex",
@@ -416,14 +417,14 @@ export default function FitnessChat() {
       >
         {messages.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-16">
-            <div className="w-12 h-12 rounded-full border border-[#B76E79]/20 flex items-center justify-center text-[#B76E79] text-lg select-none">
+            <div className="w-12 h-12 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white text-lg select-none">
               ✨
             </div>
             <div className="max-w-md">
-              <p className="text-sm text-[#F2E6E9]/45 font-sans tracking-wide uppercase leading-relaxed">
+              <p className="text-sm text-zinc-400 font-sans tracking-wide uppercase leading-relaxed">
                 Select a quick topic above or ask custom questions.
               </p>
-              <p className="text-[10px] text-[#B76E79]/50 tracking-[0.2em] font-sans font-medium uppercase mt-2">
+              <p className="text-[10px] text-zinc-400 tracking-[0.2em] font-sans font-medium uppercase mt-2">
                 SHAT AI: Grounded in Scientific Truth
               </p>
             </div>
@@ -437,11 +438,11 @@ export default function FitnessChat() {
                   key={idx}
                   style={{
                     alignSelf: isUser ? "flex-end" : "flex-start",
-                    background: isUser ? "rgba(183,110,121,0.15)" : "rgba(13,27,42,0.8)",
-                    border: isUser ? "0.5px solid rgba(183,110,121,0.3)" : "0.5px solid rgba(183,110,121,0.15)",
+                    background: isUser ? "#242424" : "#161616",
+                    border: isUser ? "1px solid rgba(255,255,255,0.2)" : "1px solid rgba(255,255,255,0.08)",
                     borderRadius: isUser ? "12px 12px 2px 12px" : "2px 12px 12px 12px",
                     padding: "12px 16px",
-                    color: "#F2E6E9",
+                    color: isUser ? "#FFFFFF" : "#E4E4E7",
                     fontSize: "14px",
                     maxWidth: isUser ? "85%" : "88%",
                     wordBreak: "break-word"
@@ -457,7 +458,7 @@ export default function FitnessChat() {
               <div 
                 style={{
                   alignSelf: "flex-start",
-                  color: "#B76E79",
+                  color: "#FFFFFF",
                   fontSize: "20px"
                 }}
                 className="flex items-center gap-1 px-4 py-2"
@@ -483,9 +484,9 @@ export default function FitnessChat() {
               onClick={() => setThinkingMode(!thinkingMode)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] transition-all duration-300 border text-[11px] cursor-pointer"
               style={{
-                background: thinkingMode ? "rgba(183,110,121,0.18)" : "rgba(13,27,42,0.5)",
-                borderColor: thinkingMode ? "#B76E79" : "rgba(183,110,121,0.2)",
-                color: thinkingMode ? "#F2E6E9" : "rgba(242,230,233,0.4)"
+                background: thinkingMode ? "#27272A" : "#181818",
+                borderColor: thinkingMode ? "#FFFFFF" : "rgba(255,255,255,0.12)",
+                color: thinkingMode ? "#FFFFFF" : "#71717A"
               }}
             >
               <span>🧠</span>
@@ -493,8 +494,8 @@ export default function FitnessChat() {
                 Deep Reason {thinkingMode ? "ON" : "OFF"}
               </span>
             </button>
-            <span className="text-[11px] text-[#F2E6E9]/35 font-sans">
-              Uses high-thinking Gemini 3.1 Pro for reasoning complex nutrition/exercise science queries.
+            <span className="text-[11px] text-zinc-400 font-sans">
+              Uses high-thinking Gemini 3.8 Flash for reasoning complex nutrition/exercise science queries.
             </span>
           </div>
         </div>
@@ -508,28 +509,28 @@ export default function FitnessChat() {
             placeholder="Ask anything about fitness..."
             className="flex-1 transition-all duration-300"
             style={{
-              background: "rgba(13,27,42,0.7)",
-              border: "0.5px solid rgba(183,110,121,0.3)",
+              background: "#161616",
+              border: "1px solid rgba(255,255,255,0.15)",
               borderRadius: "10px",
               padding: "12px 16px",
-              color: "#F2E6E9",
+              color: "#FFFFFF",
               fontSize: "14px",
               outline: "none"
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "#B76E79";
+              e.currentTarget.style.borderColor = "#FFFFFF";
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = "rgba(183,110,121,0.3)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
             }}
           />
           <button
             type="submit"
             disabled={questionsUsed >= limit || loading || !input.trim()}
-            className="transition-all duration-300 font-sans tracking-wide"
+            className="transition-all duration-300 font-sans tracking-wide font-medium"
             style={{
-              background: (questionsUsed >= limit || loading || !input.trim()) ? "rgba(183,110,121,0.12)" : "#B76E79",
-              color: (questionsUsed >= limit || loading || !input.trim()) ? "rgba(242,230,233,0.2)" : "#0D1B2A",
+              background: (questionsUsed >= limit || loading || !input.trim()) ? "#27272A" : "#FFFFFF",
+              color: (questionsUsed >= limit || loading || !input.trim()) ? "#71717A" : "#0A0A0A",
               borderRadius: "10px",
               padding: "12px 20px",
               fontSize: "13px",

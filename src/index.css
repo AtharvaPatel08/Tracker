@@ -9,9 +9,9 @@
 }
 
 @keyframes platinumPulse {
-  0% { box-shadow: 0 0 0 0 rgba(183, 110, 121, 0.1); }
-  70% { box-shadow: 0 0 0 8px rgba(183, 110, 121, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(183, 110, 121, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
 
 @layer base {
@@ -27,8 +27,8 @@
   }
 
   body {
-    background-color: #0D1B2A;
-    color: #F2E6E9;
+    background-color: #0A0A0A;
+    color: #FFFFFF;
     font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
     font-weight: 300;
     line-height: 1.9;
@@ -40,24 +40,24 @@
   }
 
   ::selection {
-    background-color: #B76E79;
-    color: #0D1B2A;
+    background-color: #FFFFFF;
+    color: #0A0A0A;
   }
 
-  /* Custom scrollbar for boutique midnight navy theme */
+  /* Custom scrollbar for high-contrast matte black theme */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0D1B2A;
+    background: #0A0A0A;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1B2A3E;
+    background: #242424;
     border-radius: 0px;
-    border: 1px solid rgba(183, 110, 121, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #141414;
+    background: #383838;
   }
 }
 
@@ -74,58 +74,57 @@
   animation: platinumPulse 2s infinite;
 }
 
-/* HIGH-FASHION BOUTIQUE THEME DASHBOARD OVERRIDES */
+/* MATTE BLACK AND WHITE MONOCHROME THEME */
 .shat-dashboard-wrapper,
 .fixed.inset-0.bg-black\/85 {
-  /* Panel and Surfaces backgrounds */
-  --color-surface-navy: #1B2A3E;
-  --color-dark-navy: #0D1B2A;
-  --color-rose-gold: #B76E79;
-  --color-blush: #F2E6E9;
-  --color-sand: #E8D5B7;
+  --color-surface-matte: #121212;
+  --color-dark-matte: #0A0A0A;
+  --color-card-matte: #161616;
+  --color-accent-white: #FFFFFF;
+  --color-silver: #A1A1AA;
 }
 
 /* Override background colors of panels/cards */
 .shat-dashboard-wrapper aside.bg-\[\#0F0F0F\]\/95 {
-  background-color: rgba(27, 42, 62, 0.95) !important;
-  border-color: rgba(183, 110, 121, 0.2) !important;
+  background-color: rgba(18, 18, 18, 0.96) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .shat-dashboard-wrapper .bg-\[\#0F0F0F\],
 .fixed.inset-0 .bg-\[\#0F0F0F\] {
-  background-color: #1B2A3E !important;
-  border-color: rgba(183, 110, 121, 0.2) !important;
-  backdrop-filter: blur(12px);
+  background-color: #141414 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(14px);
 }
 
 .shat-dashboard-wrapper .bg-\[\#0A0A0A\],
 .fixed.inset-0 .bg-\[\#0A0A0A\] {
-  background-color: #0D1B2A !important;
-  border-color: rgba(183, 110, 121, 0.15) !important;
+  background-color: #0A0A0A !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .shat-dashboard-wrapper .bg-[#070707]/90 {
-  background-color: rgba(13, 27, 42, 0.95) !important;
-  border-color: rgba(183, 110, 121, 0.2) !important;
+  background-color: rgba(10, 10, 10, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Target element text updates */
 .shat-dashboard-wrapper .text-white,
 .fixed.inset-0 .text-white {
-  color: #F2E6E9 !important;
+  color: #FFFFFF !important;
 }
 
 .shat-dashboard-wrapper .text-\[\#A8A8A8\],
 .shat-dashboard-wrapper .text-neutral-400,
 .fixed.inset-0 .text-\[\#A8A8A8\] {
-  color: #E8D5B7 !important;
-  opacity: 0.85;
+  color: #A1A1AA !important;
+  opacity: 0.95;
 }
 
 .shat-dashboard-wrapper .text-\[\#555555\],
 .fixed.inset-0 .text-\[\#555555\] {
-  color: #B76E79 !important;
-  opacity: 0.7;
+  color: #71717A !important;
+  opacity: 0.9;
 }
 
 /* Border overrides */
@@ -136,49 +135,35 @@
 .shat-dashboard-wrapper .border-b.border-white\/6,
 .fixed.inset-0 .border-white\/6,
 .fixed.inset-0 .border-white\/10 {
-  border-color: rgba(183, 110, 121, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Button overrides */
 .shat-dashboard-wrapper .bg-white,
 .fixed.inset-0 .bg-white {
-  background-color: #B76E79 !important;
-  color: #0D1B2A !important;
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
 }
 
 .shat-dashboard-wrapper .bg-white\/4,
 .shat-dashboard-wrapper .hover\:bg-white\/4:hover {
-  background-color: rgba(183, 110, 121, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 .shat-dashboard-wrapper .hover\:bg-white:hover {
-  background-color: #a25c67 !important;
-  color: #0D1B2A !important;
+  background-color: #E4E4E7 !important;
+  color: #0A0A0A !important;
 }
 
 .shat-dashboard-wrapper .text-\[\#070707\] {
-  color: #0D1B2A !important;
+  color: #0A0A0A !important;
 }
 
 /* Active range sliders and active progress meters */
 .shat-dashboard-wrapper .accent-white {
-  accent-color: #B76E79 !important;
+  accent-color: #FFFFFF !important;
 }
 
 .shat-dashboard-wrapper .bg-gradient-to-r.from-\[\#555555\].to-white {
-  background-image: linear-gradient(to right, #B76E79, #F2E6E9) !important;
+  background-image: linear-gradient(to right, #52525B, #FFFFFF) !important;
 }
-
-/* Cinematic Blinking Cursor Animation */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.animate-blink {
-  animation: blink 1s infinite;
-}
-
-
-
-

@@ -206,7 +206,7 @@ export default function App() {
       href: '#features-section',
       ariaLabel: 'Features',
       rotation: -5,
-      hoverStyles: { bgColor: '#D4AF37', textColor: '#0a0a0a' },
+      hoverStyles: { bgColor: '#FFFFFF', textColor: '#0A0A0A' },
       onClick: (e: any) => {
         e.preventDefault();
         document.getElementById("features-section")?.scrollIntoView({ behavior: "smooth" });
@@ -217,7 +217,7 @@ export default function App() {
       href: '#onboarding',
       ariaLabel: 'Ask SHAT AI',
       rotation: -3,
-      hoverStyles: { bgColor: '#B76E79', textColor: '#0d1b2a' },
+      hoverStyles: { bgColor: '#FFFFFF', textColor: '#0A0A0A' },
       onClick: (e: any) => {
         e.preventDefault();
         setScreen("LOGIN_SIGNUP");
@@ -228,7 +228,7 @@ export default function App() {
       href: '#onboarding',
       ariaLabel: 'Get Started',
       rotation: 6,
-      hoverStyles: { bgColor: '#ffffff', textColor: '#0a0a0a' },
+      hoverStyles: { bgColor: '#FFFFFF', textColor: '#0A0A0A' },
       onClick: (e: any) => {
         e.preventDefault();
         setScreen("LOGIN_SIGNUP");
@@ -967,7 +967,7 @@ export default function App() {
   return (
     <div 
       ref={containerRef}
-      className={`relative min-h-screen w-full max-w-full bg-[#0D1B2A] text-[#F2E6E9] flex flex-col overflow-x-hidden font-sans select-none ${
+      className={`relative min-h-screen w-full max-w-full bg-[#0A0A0A] text-white flex flex-col overflow-x-hidden font-sans select-none ${
         screen === "HERO" || screen === "LOGIN_SIGNUP" || screen === "DASHBOARD"
           ? "justify-start overflow-y-auto" 
           : "justify-center items-center"
@@ -976,11 +976,11 @@ export default function App() {
     >
       {screen === "HERO" && (
         <BubbleMenu
-          logo={<span className="font-shat-main font-bold text-base tracking-[0.15em] text-[#B76E79]">SHAT</span>}
+          logo={<span className="font-shat-main font-bold text-base tracking-[0.15em] text-white">SHAT</span>}
           items={shatItems}
           menuAriaLabel="Toggle SHAT navigation"
-          menuBg="rgba(27, 42, 62, 0.9)"
-          menuContentColor="#B76E79"
+          menuBg="rgba(18, 18, 18, 0.95)"
+          menuContentColor="#FFFFFF"
           useFixedPosition={true}
           animationEase="back.out(1.7)"
           animationDuration={0.45}
@@ -999,7 +999,7 @@ export default function App() {
           autoPlay
           muted
           playsInline
-          style={{ opacity: 0.45, transition: `opacity ${fadeDuration}s ease-in-out` }}
+          style={{ opacity: 0.35, transition: `opacity ${fadeDuration}s ease-in-out` }}
           className="absolute inset-0 w-full h-full object-cover"
           src="https://res.cloudinary.com/dwqwbh6mk/video/upload/v1782041968/Dumbbell_360_revolution_horizont__202606211708_iwjson.mp4"
         />
@@ -1012,14 +1012,14 @@ export default function App() {
           className="absolute inset-0 w-full h-full object-cover"
           src="https://res.cloudinary.com/dwqwbh6mk/video/upload/v1782041968/Dumbbell_360_revolution_horizont__202606211708_iwjson.mp4"
         />
-        {/* Cinematic dark gradient/overlay for extreme text legibility and depth */}
+        {/* Cinematic matte black overlay for extreme text legibility and contrast */}
         <div 
           id="video-overlay" 
-          className="absolute inset-0 bg-gradient-to-b from-[#0D1B2A]/95 via-[#0D1B2A]/45 to-[#0D1B2A]"
+          className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/95 via-[#0A0A0A]/60 to-[#0A0A0A]"
         />
         <div 
           id="video-vignette" 
-          className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(13,27,42,0.95)_100%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(10,10,10,0.95)_100%)]"
         />
       </motion.div>
  
@@ -1029,19 +1029,19 @@ export default function App() {
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed top-0 left-0 w-full z-40 bg-[#0D1B2A]/75 backdrop-blur-md border-b border-[#B76E79]/15 py-3.5 sm:py-4 md:py-5 px-4 sm:px-6 md:px-12 flex justify-between items-center"
+          className="fixed top-0 left-0 w-full z-40 bg-[#0A0A0A]/85 backdrop-blur-md border-b border-white/10 py-3.5 sm:py-4 md:py-5 px-4 sm:px-6 md:px-12 flex justify-between items-center"
         >
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="font-shat-main text-xl sm:text-2xl font-light tracking-[0.15em] sm:tracking-[0.2em] bg-gradient-to-r from-[#B76E79] to-[#E8D5B7] bg-clip-text text-transparent">S.H.A.T.</span>
-            <span className="h-4 w-[1px] bg-[#B76E79]/20 hidden md:inline-block" />
-            <span id="active-modality-val" className="text-[9px] font-sans font-light tracking-[0.3em] text-[#E8D5B7]/80 uppercase hidden md:inline-block">
+            <span className="font-shat-main text-xl sm:text-2xl font-light tracking-[0.15em] sm:tracking-[0.2em] bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">S.H.A.T.</span>
+            <span className="h-4 w-[1px] bg-white/20 hidden md:inline-block" />
+            <span id="active-modality-val" className="text-[9px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase hidden md:inline-block">
               CALIBRATING KINETICS...
             </span>
           </div>
           <nav className="flex items-center gap-3 sm:gap-6 md:gap-8 mr-12 sm:mr-16">
             <button 
               onClick={scrollToFeatures}
-              className="text-[9px] sm:text-[10px] font-sans font-normal tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#E8D5B7]/80 hover:text-[#F2E6E9] transition-colors cursor-pointer hidden sm:inline-block"
+              className="text-[9px] sm:text-[10px] font-sans font-normal tracking-[0.2em] sm:tracking-[0.3em] uppercase text-zinc-400 hover:text-white transition-colors cursor-pointer hidden sm:inline-block"
             >
               SPECIFICATIONS
             </button>
@@ -1076,16 +1076,16 @@ export default function App() {
               onClick={() => setScreen(currentUser ? "DASHBOARD" : "HERO")}
               title="Click anywhere to continue"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-none bg-[#1B2A3E]/80 border border-[#B76E79]/30 flex items-center justify-center font-shat-main text-4xl sm:text-5xl font-light text-[#B76E79] shadow-2xl shadow-[#B76E79]/5 mb-4 sm:mb-6">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-none bg-[#141414] border border-white/20 flex items-center justify-center font-shat-main text-4xl sm:text-5xl font-light text-white shadow-2xl mb-4 sm:mb-6">
                 S
               </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-shat-main font-extralight tracking-[0.18em] sm:tracking-[0.2em] bg-gradient-to-r from-[#B76E79] via-[#F2E6E9] to-[#E8D5B7] bg-clip-text text-transparent uppercase select-none">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-shat-main font-extralight tracking-[0.18em] sm:tracking-[0.2em] bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent uppercase select-none">
                 S.H.A.T.
               </h1>
-              <p className="font-shat-tagline text-sm sm:text-base md:text-lg italic text-[#E8D5B7]/90 font-light mt-3 sm:mt-4 min-h-[30px] select-none uppercase tracking-[0.2em] sm:tracking-[0.3em] px-4">
+              <p className="font-shat-tagline text-sm sm:text-base md:text-lg italic text-zinc-300 font-light mt-3 sm:mt-4 min-h-[30px] select-none uppercase tracking-[0.2em] sm:tracking-[0.3em] px-4">
                 {displayed}
                 {!done && (
-                  <span className="inline-block w-[2px] h-[1.1em] bg-[#B76E79] align-middle ml-[2px] animate-blink" />
+                  <span className="inline-block w-[2px] h-[1.1em] bg-white align-middle ml-[2px] animate-blink" />
                 )}
               </p>
               <button
@@ -1094,7 +1094,7 @@ export default function App() {
                   e.stopPropagation();
                   setScreen(currentUser ? "DASHBOARD" : "HERO");
                 }}
-                className="mt-6 text-[10px] sm:text-[11px] tracking-[0.25em] text-[#B76E79]/80 hover:text-[#B76E79] uppercase font-sans border-b border-[#B76E79]/20 hover:border-[#B76E79] pb-0.5 transition-colors cursor-pointer"
+                className="mt-6 text-[10px] sm:text-[11px] tracking-[0.25em] text-zinc-400 hover:text-white uppercase font-sans border-b border-zinc-700 hover:border-white pb-0.5 transition-colors cursor-pointer"
               >
                 Skip Intro →
               </button>
@@ -1123,7 +1123,7 @@ export default function App() {
                 {/* Background ambient glow */}
                 <div 
                   id="ambient-backlight"
-                  className="absolute left-[15%] sm:left-[30%] top-[40%] -translate-y-1/2 w-[300px] sm:w-[450px] h-[220px] sm:h-[300px] bg-[#B76E79]/5 blur-[90px] sm:blur-[120px] rounded-full pointer-events-none transition-all duration-1000 max-w-full"
+                  className="absolute left-[15%] sm:left-[30%] top-[40%] -translate-y-1/2 w-[300px] sm:w-[450px] h-[220px] sm:h-[300px] bg-white/[0.03] blur-[100px] rounded-full pointer-events-none transition-all duration-1000 max-w-full"
                   style={{
                     transform: hovered ? "translateY(-50%) scale(1.15)" : "translateY(-50%)"
                   }}
@@ -1139,23 +1139,23 @@ export default function App() {
                     initial="hidden"
                     animate="visible"
                   >
-                    {/* S.H.A.T. massive horizontal metallic silver 3D typography - scaled down to fit elegant left-side layout */}
+                    {/* S.H.A.T. massive horizontal metallic silver 3D typography */}
                     <motion.div variants={itemVariants} className="w-full flex items-start">
                       <h1 
                         id="shat-title"
                         className="text-[36px] min-[380px]:text-[44px] sm:text-[64px] md:text-[84px] lg:text-[98px] font-shat-main font-extralight leading-none select-none transition-all duration-700 relative flex items-baseline tracking-[0.14em] min-[380px]:tracking-[0.18em] sm:tracking-[0.2em]"
                         style={{
                           textShadow: hovered 
-                            ? "0 1px 0 #b76e79, 0 2px 0 #a25c67, 0 3px 0 #8e4c56, 0 4px 0 #7a3e47, 0 5px 0 #67313a, 0 6px 1px rgba(0,0,0,.15), 0 0 5px rgba(183,110,121,.2), 0 1px 3px rgba(0,0,0,.35), 0 3px 5px rgba(0,0,0,.25), 0 5px 10px rgba(0,0,0,.3), 0 10px 10px rgba(0,0,0,.25), 0 20px 20px rgba(0,0,0,.2)"
-                            : "0 1px 0 #a25c67, 0 2px 0 #8e4c56, 0 3px 0 #7a3e47, 0 4px 0 #67313a, 0 5px 0 #54252d, 0 6px 1px rgba(0,0,0,.15), 0 0 5px rgba(183,110,121,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25)",
+                            ? "0 1px 0 #71717a, 0 2px 0 #52525b, 0 3px 0 #3f3f46, 0 4px 0 #27272a, 0 5px 0 #18181b, 0 6px 1px rgba(0,0,0,.6), 0 0 10px rgba(255,255,255,.2)"
+                            : "0 1px 0 #52525b, 0 2px 0 #3f3f46, 0 3px 0 #27272a, 0 4px 0 #18181b, 0 5px 0 #09090b, 0 6px 1px rgba(0,0,0,.6)",
                           transform: hovered ? "skewX(-3deg) rotateX(10deg)" : "skewX(-1.5deg) rotateX(5deg)",
                           perspective: "1000px"
                         }}
                       >
-                        <span className="bg-gradient-to-br from-[#B76E79] via-[#E8D5B7] to-[#B76E79] bg-clip-text text-transparent hover:brightness-110 duration-300">S</span>
-                        <span className="bg-gradient-to-br from-[#E8D5B7] via-[#F2E6E9] to-[#B76E79] bg-clip-text text-transparent hover:brightness-110 duration-300">H</span>
-                        <span className="bg-gradient-to-br from-[#B76E79] via-[#F2E6E9] to-[#E8D5B7] bg-clip-text text-transparent hover:brightness-110 duration-300">A</span>
-                        <span className="bg-gradient-to-br from-[#E8D5B7] via-[#B76E79] to-[#E8D5B7] bg-clip-text text-transparent hover:brightness-110 duration-300 font-extrabold">T</span>
+                        <span className="bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">S</span>
+                        <span className="bg-gradient-to-br from-zinc-200 via-white to-zinc-300 bg-clip-text text-transparent hover:brightness-110 duration-300">H</span>
+                        <span className="bg-gradient-to-br from-white via-zinc-300 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">A</span>
+                        <span className="bg-gradient-to-br from-zinc-300 via-white to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300 font-extrabold">T</span>
                       </h1>
                     </motion.div>
 
@@ -1164,7 +1164,7 @@ export default function App() {
                       <motion.div 
                         variants={itemVariants}
                         id="shat-tagline-wrapper"
-                        className="w-full max-w-full pl-3 pr-4 py-2.5 sm:pl-4 sm:pr-6 sm:py-3 transition-all duration-500 rounded-none bg-[#1B2A3E]/85 backdrop-blur-md border border-[#B76E79]/20 shadow-xl inline-block overflow-hidden"
+                        className="w-full max-w-full pl-3 pr-4 py-2.5 sm:pl-4 sm:pr-6 sm:py-3 transition-all duration-500 rounded-none bg-[#141414]/90 backdrop-blur-md border border-white/10 shadow-2xl inline-block overflow-hidden"
                         style={{
                           letterSpacing: "0.2em",
                           transform: hovered ? "translateX(10px)" : "translateX(0px)"
@@ -1172,7 +1172,7 @@ export default function App() {
                       >
                         <p 
                           id="shat-tagline"
-                          className="font-shat-tagline mb-0 text-[#F2E6E9] tracking-normal select-none uppercase break-words"
+                          className="font-shat-tagline mb-0 text-white tracking-normal select-none uppercase break-words"
                           style={{
                             fontSize: "clamp(13px, 3.8vw, 24px)",
                             lineHeight: "1.35",
@@ -1184,7 +1184,7 @@ export default function App() {
                           {!done && (
                             <span 
                               id="typewriter-cursor"
-                              className="inline-block w-[2px] h-[1.1em] bg-[#B76E79] align-middle ml-[2px] animate-blink"
+                              className="inline-block w-[2px] h-[1.1em] bg-white align-middle ml-[2px] animate-blink"
                             />
                           )}
                         </p>
@@ -1196,7 +1196,7 @@ export default function App() {
                           delay={40}
                           animateBy="words"
                           direction="bottom"
-                          className="max-w-xl text-xs sm:text-sm leading-[1.8] sm:leading-[1.9] text-[#E8D5B7]/90 font-sans font-light pr-0 sm:pr-6"
+                          className="max-w-xl text-xs sm:text-sm leading-[1.8] sm:leading-[1.9] text-zinc-400 font-sans font-light pr-0 sm:pr-6"
                         />
                       </motion.div>
 
@@ -1207,13 +1207,13 @@ export default function App() {
                         <GlassButton 
                           onClick={() => setScreen("LOGIN_SIGNUP")}
                           variant="primary"
-                          className="shadow-xl shadow-[#B76E79]/5 w-full sm:w-auto"
+                          className="shadow-xl shadow-white/5 w-full sm:w-auto"
                         >
                           START SESSION [ENTER ↵]
                         </GlassButton>
                         <button 
                           onClick={() => document.getElementById("valve-prop")?.scrollIntoView({ behavior: "smooth" })}
-                          className="px-4 sm:px-6 py-3.5 sm:py-4 rounded-none border border-transparent hover:border-[#B76E79]/20 font-sans font-normal text-[9px] sm:text-[10px] tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[#E8D5B7]/80 hover:text-[#F2E6E9] transition-all duration-300 cursor-pointer text-center"
+                          className="px-4 sm:px-6 py-3.5 sm:py-4 rounded-none border border-transparent hover:border-white/20 font-sans font-normal text-[9px] sm:text-[10px] tracking-[0.25em] sm:tracking-[0.3em] uppercase text-zinc-400 hover:text-white transition-all duration-300 cursor-pointer text-center"
                         >
                           EXPLORE INTERACTIVITY &darr;
                         </button>
@@ -1230,26 +1230,26 @@ export default function App() {
                     id="interactive-dumbbell-stage"
                     role="region"
                     aria-label="Interactive 3D Dumbbell - Drag or move to rotate"
-                    className="w-full md:w-[48%] lg:w-[50%] h-[260px] min-[400px]:h-[300px] sm:h-[360px] md:h-[460px] lg:h-[520px] relative border border-[#B76E79]/20 bg-[#1B2A3E]/20 backdrop-blur-[2px] transition-all duration-300 flex flex-col justify-between p-3.5 sm:p-5 select-none cursor-grab active:cursor-grabbing group shadow-2xl shadow-black/40 overflow-hidden"
+                    className="w-full md:w-[48%] lg:w-[50%] h-[260px] min-[400px]:h-[300px] sm:h-[360px] md:h-[460px] lg:h-[520px] relative border border-white/10 bg-[#121212]/50 backdrop-blur-[2px] transition-all duration-300 flex flex-col justify-between p-3.5 sm:p-5 select-none cursor-grab active:cursor-grabbing group shadow-2xl shadow-black/60 overflow-hidden"
                     style={{ touchAction: "pan-y" }}
                   >
                     {/* Sleek Tactical Corner Brackets */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#B76E79]/70 pointer-events-none" />
-                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#B76E79]/70 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#B76E79]/70 pointer-events-none" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#B76E79]/70 pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-white/60 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white/60 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-white/60 pointer-events-none" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-white/60 pointer-events-none" />
 
                     {/* Top Telemetry Header in Stage */}
                     <div className="flex items-center justify-between w-full pointer-events-none z-10">
                       <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#B76E79] animate-platinum-pulse" />
-                        <span className="font-sans text-[8px] sm:text-[9px] font-light tracking-[0.25em] text-[#E8D5B7]/90 uppercase">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-platinum-pulse" />
+                        <span className="font-sans text-[8px] sm:text-[9px] font-light tracking-[0.25em] text-zinc-300 uppercase">
                           3D ROTATIONAL DUMBBELL
                         </span>
                       </div>
                       <span 
                         id="dumbbell-badge-deg"
-                        className="font-shat-main text-[10px] sm:text-xs font-light tracking-[0.2em] text-[#B76E79] bg-[#0D1B2A]/85 border border-[#B76E79]/30 px-2.5 py-0.5"
+                        className="font-shat-main text-[10px] sm:text-xs font-light tracking-[0.2em] text-white bg-[#0A0A0A]/90 border border-white/20 px-2.5 py-0.5"
                       >
                         0° ROTATION
                       </span>
@@ -1258,24 +1258,24 @@ export default function App() {
                     {/* Center Subtle Target Reticle */}
                     <div className="flex flex-col items-center justify-center my-auto pointer-events-none z-10">
                       <div className="relative w-14 h-14 flex items-center justify-center opacity-30 group-hover:opacity-75 transition-opacity duration-300">
-                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#B76E79] to-transparent" />
-                        <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-[#B76E79] to-transparent" />
-                        <div className="w-6 h-6 rounded-full border border-[#B76E79]/60" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#B76E79]" />
+                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-white to-transparent" />
+                        <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-white to-transparent" />
+                        <div className="w-6 h-6 rounded-full border border-white/40" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-white" />
                       </div>
                     </div>
 
                     {/* Bottom Touch & Drag Guide */}
-                    <div className="flex items-center justify-between w-full pointer-events-none pt-2 border-t border-[#B76E79]/15 z-10">
+                    <div className="flex items-center justify-between w-full pointer-events-none pt-2 border-t border-white/10 z-10">
                       <span 
                         id="dumbbell-touch-prompt"
-                        className="font-sans text-[8px] sm:text-[9px] font-light tracking-[0.2em] sm:tracking-[0.25em] text-[#E8D5B7]/90 uppercase flex items-center gap-2"
+                        className="font-sans text-[8px] sm:text-[9px] font-light tracking-[0.2em] sm:tracking-[0.25em] text-zinc-300 uppercase flex items-center gap-2"
                       >
-                        <span className="text-[#B76E79] text-xs animate-pulse">⟵</span>
+                        <span className="text-white text-xs animate-pulse">⟵</span>
                         <span id="dumbbell-touch-prompt-text">DRAG TO ROTATE 360°</span>
-                        <span className="text-[#B76E79] text-xs animate-pulse">⟶</span>
+                        <span className="text-white text-xs animate-pulse">⟶</span>
                       </span>
-                      <span className="font-sans text-[7px] sm:text-[8px] tracking-[0.2em] text-[#B76E79]/60 uppercase hidden min-[400px]:inline">
+                      <span className="font-sans text-[7px] sm:text-[8px] tracking-[0.2em] text-zinc-500 uppercase hidden min-[400px]:inline">
                         TOUCH & MOUSE ENABLED
                       </span>
                     </div>
@@ -1283,8 +1283,8 @@ export default function App() {
                 </div>
 
                 {/* Interactive instruction indicator */}
-                <div className="mt-8 sm:mt-12 text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[#B76E79]/60 animate-pulse flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B76E79]" />
+                <div className="mt-8 sm:mt-12 text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] uppercase text-zinc-500 animate-pulse flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   <span className="hidden md:inline">MOVE MOUSE OR DRAG HORIZONTALLY TO SCRUB ROTATIONAL PHYSICS</span>
                   <span className="md:hidden">DRAG FINGER HORIZONTALLY ACROSS DUMBBELL TO ROTATE</span>
                 </div>
@@ -1300,24 +1300,24 @@ export default function App() {
                 className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 lg:px-24 max-w-7xl mx-auto flex flex-col justify-center items-start gap-8 sm:gap-12"
               >
                 <div className="flex flex-col items-start gap-2.5 sm:gap-3">
-                  <span className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.3em] text-[#B76E79]/70 uppercase block">SPECIFICATIONS // GEARS</span>
+                  <span className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase block">SPECIFICATIONS // GEARS</span>
                   <BlurText
                     text="BEYOND LIMITATION."
                     delay={100}
                     animateBy="letters"
                     direction="top"
-                    className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-[#F2E6E9] uppercase"
+                    className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                   />
                   <BlurText
                     text="*Engineered loops constructed for elite stabilization.*"
                     delay={40}
                     animateBy="words"
                     direction="bottom"
-                    className="font-shat-tagline text-base sm:text-xl italic text-[#E8D5B7]/90 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
+                    className="font-shat-tagline text-base sm:text-xl italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
                   />
                 </div>
 
-                <div className="w-full lg:w-[65%] h-[560px] sm:h-[680px] md:h-[810px] mt-6 border border-[#B76E79]/15 bg-[#1B2A3E]/30 backdrop-blur-md relative overflow-hidden">
+                <div className="w-full lg:w-[65%] h-[560px] sm:h-[680px] md:h-[810px] mt-6 border border-white/10 bg-[#121212]/80 backdrop-blur-md relative overflow-hidden">
                   <ScrollStack 
                     className="w-full h-full"
                     itemDistance={80}
@@ -1411,50 +1411,50 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-gradient-to-b from-transparent via-[#1B2A3E]/40 to-transparent relative"
+                className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent relative"
               >
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
                   
                   {/* Left Column: Visual/Telemetry Dashboard */}
                   <div className="lg:col-span-7 flex flex-col gap-6">
-                    <div className="p-4 sm:p-6 md:p-8 rounded-none border border-[#B76E79]/20 bg-[#1B2A3E]/90 shadow-2xl relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-3 sm:p-4 font-sans text-[8px] sm:text-[9px] text-[#B76E79]/70 tracking-widest">
+                    <div className="p-4 sm:p-6 md:p-8 rounded-none border border-white/10 bg-[#141414]/90 shadow-2xl relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-3 sm:p-4 font-sans text-[8px] sm:text-[9px] text-zinc-400 tracking-widest">
                         SERIES_VERSION // 1.0.4
                       </div>
                       
                       <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
-                        <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#B76E79] animate-pulse" />
-                        <span className="font-sans text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-[#E8D5B7]/95 uppercase">LIVE INTEGRATED TELEMETRY</span>
+                        <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-pulse" />
+                        <span className="font-sans text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-white uppercase">LIVE INTEGRATED TELEMETRY</span>
                       </div>
 
                       {/* Big Live Rotation degrees updated in RAF */}
-                      <div className="py-6 sm:py-8 border-y border-[#B76E79]/15 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
-                        <span id="active-deg-val" className="font-shat-main text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.16em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-[#B76E79] via-[#F2E6E9] to-[#E8D5B7] text-center">
+                      <div className="py-6 sm:py-8 border-y border-white/10 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
+                        <span id="active-deg-val" className="font-shat-main text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.16em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 text-center">
                           0° ROTATION
                         </span>
-                        <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.2em] sm:tracking-[0.3em] text-[#E8D5B7]/80 uppercase mt-1 text-center">
+                        <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.2em] sm:tracking-[0.3em] text-zinc-400 uppercase mt-1 text-center">
                           Synchronized with Mouse & Touch Gestures
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 min-[420px]:grid-cols-3 gap-3 sm:gap-6 pt-4 sm:pt-6">
                         <div>
-                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 block uppercase mb-1">STABILIZER WEIGHT</span>
-                          <span className="font-sans text-xs sm:text-sm font-light text-[#F2E6E9]">10.8 KG FLUID</span>
+                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 block uppercase mb-1">STABILIZER WEIGHT</span>
+                          <span className="font-sans text-xs sm:text-sm font-light text-white">10.8 KG FLUID</span>
                         </div>
                         <div>
-                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 block uppercase mb-1">COEF_RESISTANCE</span>
-                          <span className="font-sans text-xs sm:text-sm font-light text-[#F2E6E9]">SENS_0.8_X</span>
+                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 block uppercase mb-1">COEF_RESISTANCE</span>
+                          <span className="font-sans text-xs sm:text-sm font-light text-white">SENS_0.8_X</span>
                         </div>
                         <div>
-                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 block uppercase mb-1">AXIS ALIGNMENT</span>
-                          <span className="font-sans text-xs sm:text-sm font-light text-[#F2E6E9]">HORIZONTAL</span>
+                          <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 block uppercase mb-1">AXIS ALIGNMENT</span>
+                          <span className="font-sans text-xs sm:text-sm font-light text-white">HORIZONTAL</span>
                         </div>
                       </div>
 
                       {/* Simulated telemetry tracking slider */}
                       <div className="mt-6 sm:mt-8 flex flex-col gap-2">
-                        <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-[#B76E79]/60 tracking-wider">
+                        <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-zinc-500 tracking-wider">
                           <span>SECTOR_ALPHA</span>
                           <span className="hidden sm:inline">ROTATIONAL REVOLUTION COORDINATE</span>
                           <span className="sm:hidden">COORDINATE</span>
@@ -1467,32 +1467,32 @@ export default function App() {
                           max="100" 
                           defaultValue="0" 
                           disabled
-                          className="w-full accent-[#B76E79] bg-[#B76E79]/10 h-[2px] rounded-none appearance-none cursor-not-allowed"
+                          className="w-full accent-white bg-white/10 h-[2px] rounded-none appearance-none cursor-not-allowed"
                         />
                       </div>
 
                       {/* Advanced Loop Momentum Calibration panel */}
-                      <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#B76E79]/15 flex flex-col gap-3 sm:gap-4">
+                      <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-col gap-3 sm:gap-4">
                         <div className="flex flex-wrap items-center justify-between gap-2">
-                          <span className="text-[9px] sm:text-[10px] font-sans font-normal tracking-[0.18em] sm:tracking-[0.2em] text-[#F2E6E9] flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#B76E79] animate-platinum-pulse" />
+                          <span className="text-[9px] sm:text-[10px] font-sans font-normal tracking-[0.18em] sm:tracking-[0.2em] text-white flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-platinum-pulse" />
                             VELOCITY MOMENTUM CALIBRATOR
                           </span>
-                          <span id="active-channel-indicator" className="text-[8px] sm:text-[9px] font-sans font-light bg-[#B76E79]/10 text-[#F2E6E9] px-2 py-0.5 rounded-none border border-[#B76E79]/20 uppercase tracking-[0.2em]">
+                          <span id="active-channel-indicator" className="text-[8px] sm:text-[9px] font-sans font-light bg-white/10 text-white px-2 py-0.5 rounded-none border border-white/20 uppercase tracking-[0.2em]">
                             {activeChannel === "CH_1" ? "CHANNEL_1_ACTIVE" : "CHANNEL_2_ACTIVE"}
                           </span>
                         </div>
 
-                        <p className="text-[9px] sm:text-[10px] text-[#E8D5B7]/90 font-sans font-light leading-[1.8] sm:leading-[1.9] uppercase tracking-wider">
+                        <p className="text-[9px] sm:text-[10px] text-zinc-400 font-sans font-light leading-[1.8] sm:leading-[1.9] uppercase tracking-wider">
                           Fine-tune start/end bounds to eliminate mechanical acceleration/deceleration lag. Select optimized presets below for perfect angular continuity.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-2">
                           {/* Start Trim slider */}
-                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15">
-                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-[#E8D5B7]/80">
+                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0A0A0A] border border-white/10">
+                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-zinc-400">
                               <span>START TRIM</span>
-                              <span className="text-[#F2E6E9] font-bold">{startTrim.toFixed(2)}s</span>
+                              <span className="text-white font-bold">{startTrim.toFixed(2)}s</span>
                             </div>
                             <input 
                               type="range" 
@@ -1501,15 +1501,15 @@ export default function App() {
                               step="0.01" 
                               value={startTrim} 
                               onChange={(e) => setStartTrim(parseFloat(e.target.value))}
-                              className="w-full accent-[#B76E79] bg-[#B76E79]/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
+                              className="w-full accent-white bg-white/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
                             />
                           </div>
 
                           {/* End Trim slider */}
-                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15">
-                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-[#E8D5B7]/80">
+                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0A0A0A] border border-white/10">
+                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-zinc-400">
                               <span>END TRIM</span>
-                              <span className="text-[#F2E6E9] font-bold">{endTrim.toFixed(2)}s</span>
+                              <span className="text-white font-bold">{endTrim.toFixed(2)}s</span>
                             </div>
                             <input 
                               type="range" 
@@ -1518,15 +1518,15 @@ export default function App() {
                               step="0.01" 
                               value={endTrim} 
                               onChange={(e) => setEndTrim(parseFloat(e.target.value))}
-                              className="w-full accent-[#B76E79] bg-[#B76E79]/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
+                              className="w-full accent-white bg-white/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
                             />
                           </div>
 
                           {/* Handoff Fade Slider */}
-                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15">
-                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-[#E8D5B7]/80">
+                          <div className="flex flex-col gap-1.5 p-3 rounded-none bg-[#0A0A0A] border border-white/10">
+                            <div className="flex justify-between font-sans text-[8px] sm:text-[9px] text-zinc-400">
                               <span>HANDOFF FADE</span>
-                              <span className="text-[#F2E6E9] font-bold">{fadeDuration.toFixed(2)}s</span>
+                              <span className="text-white font-bold">{fadeDuration.toFixed(2)}s</span>
                             </div>
                             <input 
                               type="range" 
@@ -1535,21 +1535,21 @@ export default function App() {
                               step="0.01" 
                               value={fadeDuration} 
                               onChange={(e) => setFadeDuration(parseFloat(e.target.value))}
-                              className="w-full accent-[#B76E79] bg-[#B76E79]/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
+                              className="w-full accent-white bg-white/10 h-2 sm:h-1 rounded-none appearance-none cursor-pointer"
                             />
                           </div>
                         </div>
 
                         {/* Calibration presets */}
                         <div className="flex flex-wrap items-center gap-2 mt-2">
-                          <span className="text-[8px] sm:text-[9px] font-sans font-light text-[#B76E79]/60 uppercase mr-1">CALIBRATION PRESETS:</span>
+                          <span className="text-[8px] sm:text-[9px] font-sans font-light text-zinc-500 uppercase mr-1">CALIBRATION PRESETS:</span>
                           <button 
                             onClick={() => {
                               setStartTrim(0.12);
                               setEndTrim(5.82);
                               setFadeDuration(0.08);
                             }}
-                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#1B2A3E]/60 text-[#E8D5B7]/80 font-sans font-normal text-[8px] sm:text-[9px] border border-[#B76E79]/20 hover:bg-[#B76E79] hover:text-[#0D1B2A] transition-all uppercase cursor-pointer"
+                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#141414] text-zinc-300 font-sans font-normal text-[8px] sm:text-[9px] border border-white/15 hover:bg-white hover:text-black transition-all uppercase cursor-pointer"
                           >
                             Hyper-Snappy (0.08s)
                           </button>
@@ -1559,7 +1559,7 @@ export default function App() {
                               setEndTrim(5.72);
                               setFadeDuration(0.00);
                             }}
-                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#1B2A3E]/60 text-[#E8D5B7]/80 font-sans font-normal text-[8px] sm:text-[9px] border border-[#B76E79]/20 hover:bg-[#B76E79] hover:text-[#0D1B2A] transition-all uppercase cursor-pointer"
+                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#141414] text-zinc-300 font-sans font-normal text-[8px] sm:text-[9px] border border-white/15 hover:bg-white hover:text-black transition-all uppercase cursor-pointer"
                           >
                             Instant Swap (0ms)
                           </button>
@@ -1569,7 +1569,7 @@ export default function App() {
                               setEndTrim(5.90);
                               setFadeDuration(0.40);
                             }}
-                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#1B2A3E]/60 text-[#E8D5B7]/80 font-sans font-normal text-[8px] sm:text-[9px] border border-[#B76E79]/20 hover:bg-[#B76E79] hover:text-[#0D1B2A] transition-all uppercase cursor-pointer"
+                            className="px-2 py-1.5 sm:py-1 rounded-none bg-[#141414] text-zinc-300 font-sans font-normal text-[8px] sm:text-[9px] border border-white/15 hover:bg-white hover:text-black transition-all uppercase cursor-pointer"
                           >
                             Smooth Blend (0.4s)
                           </button>
@@ -1585,36 +1585,36 @@ export default function App() {
                       delay={50}
                       animateBy="words"
                       direction="top"
-                      className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 uppercase"
+                      className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 uppercase"
                     />
                     <BlurText
                       text="PHYSICALITY WITH SEAMLESS FEEDBACK"
                       delay={40}
                       animateBy="words"
                       direction="top"
-                      className="font-shat-main text-2xl sm:text-3xl md:text-4xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-[#F2E6E9] uppercase leading-tight"
+                      className="font-shat-main text-2xl sm:text-3xl md:text-4xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase leading-tight"
                     />
                     <BlurText
                       text="*Our rotational series introduces absolute control over vector acceleration.*"
                       delay={30}
                       animateBy="words"
                       direction="bottom"
-                      className="font-shat-tagline text-base sm:text-xl italic text-[#E8D5B7]/90 font-light leading-[1.8] sm:leading-[1.9]"
+                      className="font-shat-tagline text-base sm:text-xl italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
                     />
                     <BlurText
                       text="Move your mouse or drag on mobile to control the virtual dumbbell backdrop above. The active system measures absolute position offsets in microseconds, delivering seamless transitions between forward acceleration and heavy recoil balancing loops."
                       delay={10}
                       animateBy="words"
                       direction="bottom"
-                      className="text-xs sm:text-sm leading-[1.8] sm:leading-[1.9] text-[#E8D5B7]/80 font-sans font-light"
+                      className="text-xs sm:text-sm leading-[1.8] sm:leading-[1.9] text-zinc-400 font-sans font-light"
                     />
                     <div className="flex flex-col gap-2.5 sm:gap-3 pt-2">
-                      <div className="flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-[#F2E6E9]">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#B76E79] animate-platinum-pulse shrink-0" />
+                      <div className="flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-white">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white animate-platinum-pulse shrink-0" />
                         <span className="font-sans font-light tracking-[0.15em] sm:tracking-[0.2em]">LATENCY ZERO // DIRECT INPUT HARDWARE</span>
                       </div>
-                      <div className="flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-[#B76E79]/60">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#B76E79]/60 shrink-0" />
+                      <div className="flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-500 shrink-0" />
                         <span className="font-sans font-light tracking-[0.15em] sm:tracking-[0.2em]">FLUID DAMPENING STABILIZATION</span>
                       </div>
                     </div>
@@ -1630,7 +1630,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-[#0D1B2A] border-y border-[#B76E79]/15 relative overflow-hidden flex flex-col items-center gap-8 sm:gap-12"
+                className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-[#0A0A0A] border-y border-white/10 relative overflow-hidden flex flex-col items-center gap-8 sm:gap-12"
               >
                 <div className="flex flex-col items-center text-center gap-2.5 sm:gap-3 max-w-xl px-2">
                   <BlurText
@@ -1638,28 +1638,28 @@ export default function App() {
                     delay={50}
                     animateBy="words"
                     direction="top"
-                    className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 uppercase"
+                    className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 uppercase"
                   />
                   <BlurText
                     text="CORE KINETIC CONFIGURATIONS"
                     delay={80}
                     animateBy="words"
                     direction="top"
-                    className="font-shat-main text-xl sm:text-2xl md:text-3xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-[#F2E6E9] uppercase"
+                    className="font-shat-main text-xl sm:text-2xl md:text-3xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                   />
                   <BlurText
                     text="*Explore anatomical designs of high-intensity rotational core units. Drag horizontally or scroll to rotate the 3D projection ring.*"
                     delay={25}
                     animateBy="words"
                     direction="bottom"
-                    className="font-shat-tagline text-xs sm:text-sm italic text-[#E8D5B7]/90 font-light leading-[1.8] sm:leading-[1.9]"
+                    className="font-shat-tagline text-xs sm:text-sm italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
                   />
                 </div>
 
-                <div className="w-full h-[360px] sm:h-[440px] md:h-[500px] relative border border-[#B76E79]/20 bg-[#1B2A3E]/40 backdrop-blur-md overflow-hidden">
+                <div className="w-full h-[360px] sm:h-[440px] md:h-[500px] relative border border-white/10 bg-[#141414]/60 backdrop-blur-md overflow-hidden">
                   <CircularGallery
                     bend={3}
-                    textColor="#E8D5B7"
+                    textColor="#FFFFFF"
                     borderRadius={0}
                     scrollEase={0.03}
                     items={[
@@ -1684,10 +1684,10 @@ export default function App() {
                 className="w-full py-20 sm:py-28 md:py-32 px-4 sm:px-6 md:px-12 lg:px-24 max-w-5xl mx-auto text-center"
               >
                 <div 
-                  className="p-6 sm:p-10 md:p-16 rounded-none border border-[#B76E79]/15 bg-[#1B2A3E]/90 backdrop-blur-2xl shadow-3xl relative overflow-hidden flex flex-col items-center gap-6 sm:gap-8 animate-none"
+                  className="p-6 sm:p-10 md:p-16 rounded-none border border-white/10 bg-[#141414]/90 backdrop-blur-2xl shadow-3xl relative overflow-hidden flex flex-col items-center gap-6 sm:gap-8 animate-none"
                 >
                   {/* Background lighting flare in container */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-32 sm:h-40 bg-[#B76E79]/5 blur-[80px] sm:blur-[90px] rounded-full pointer-events-none" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-32 sm:h-40 bg-white/[0.03] blur-[80px] sm:blur-[90px] rounded-full pointer-events-none" />
 
                   <div className="flex flex-col items-center gap-2.5 sm:gap-3 max-w-xl">
                     <BlurText
@@ -1695,28 +1695,28 @@ export default function App() {
                       delay={50}
                       animateBy="words"
                       direction="top"
-                      className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/70 uppercase"
+                      className="text-[9px] sm:text-[10px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 uppercase"
                     />
                     <BlurText
                       text="CLAIM YOUR POSITION"
                       delay={40}
                       animateBy="words"
                       direction="top"
-                      className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-[#F2E6E9] uppercase"
+                      className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                     />
                     <BlurText
                       text="*Slots within elite production loops are strictly managed.*"
                       delay={30}
                       animateBy="words"
                       direction="bottom"
-                      className="font-shat-tagline text-base sm:text-lg italic text-[#E8D5B7]/90 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
+                      className="font-shat-tagline text-base sm:text-lg italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
                     />
                     <BlurText
                       text="Sign up below to receive absolute access keys, launch specifications, and exclusive hardware priority allotments."
                       delay={15}
                       animateBy="words"
                       direction="bottom"
-                      className="text-xs text-[#E8D5B7]/80 font-sans font-light mt-1 sm:mt-2"
+                      className="text-xs text-zinc-400 font-sans font-light mt-1 sm:mt-2"
                     />
                   </div>
 
@@ -1736,7 +1736,7 @@ export default function App() {
                           placeholder="ENTER REGISTERED EMAIL" 
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-none border border-[#B76E79]/20 bg-[#0D1B2A] text-[#F2E6E9] placeholder-[#E8D5B7]/30 focus:outline-none focus:border-[#B76E79]/50 focus:ring-0 font-sans font-light text-xs tracking-wider transition-all duration-300"
+                          className="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-none border border-white/20 bg-[#0A0A0A] text-white placeholder-zinc-500 focus:outline-none focus:border-white/60 focus:ring-0 font-sans font-light text-xs tracking-wider transition-all duration-300"
                         />
                         <GlassButton type="submit" variant="primary" className="w-full sm:w-auto whitespace-nowrap py-3.5 sm:py-4">
                           SECURE INTAKE
@@ -1748,12 +1748,12 @@ export default function App() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        className="py-4 px-6 rounded-none border border-[#B76E79]/20 bg-[#1B2A3E] backdrop-blur-md flex flex-col items-center gap-2 max-w-md relative z-10"
+                        className="py-4 px-6 rounded-none border border-white/20 bg-[#181818] backdrop-blur-md flex flex-col items-center gap-2 max-w-md relative z-10"
                       >
-                        <span className="font-sans text-xs text-[#F2E6E9] tracking-widest uppercase font-bold">
+                        <span className="font-sans text-xs text-white tracking-widest uppercase font-bold">
                           [ INTAKE VERIFIED ]
                         </span>
-                        <span className="text-xs text-[#E8D5B7]/80 font-sans font-light">
+                        <span className="text-xs text-zinc-400 font-sans font-light">
                           Secure transmission sent. Monitor inbox for series key notifications.
                         </span>
                       </motion.div>
@@ -1763,34 +1763,34 @@ export default function App() {
                   <div className="pt-2 z-10 w-full sm:w-auto">
                     <button
                       onClick={() => setScreen("LOGIN_SIGNUP")}
-                      className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-none bg-[#B76E79] hover:bg-[#a25c67] text-[#0D1B2A] font-sans font-normal text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-all duration-300 shadow-xl shadow-[#B76E79]/5 flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-none bg-white hover:bg-zinc-200 text-black font-sans font-semibold text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-all duration-300 shadow-xl shadow-white/5 flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>LAUNCH S.H.A.T. PORTAL NOW</span>
                       <ArrowRight className="w-4 h-4 shrink-0" />
                     </button>
                   </div>
 
-                  <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/50 uppercase">
+                  <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-500 uppercase">
                     CONFIDENTIAL // COMPLIANCE REGISTERED
                   </span>
                 </div>
               </motion.section>
 
               {/* FOOTER */}
-              <footer className="relative z-10 w-full border-t border-[#B76E79]/15 bg-[#0D1B2A]/80 backdrop-blur-md py-8 sm:py-12 px-4 sm:px-6 md:px-12 lg:px-24">
+              <footer className="relative z-10 w-full border-t border-white/10 bg-[#0A0A0A]/90 backdrop-blur-md py-8 sm:py-12 px-4 sm:px-6 md:px-12 lg:px-24">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
                   
                   <div className="flex flex-col items-center md:items-start gap-1 sm:gap-2 text-center md:text-left">
-                    <span className="font-shat-main text-base sm:text-lg font-light tracking-[0.2em] text-[#F2E6E9]">S.H.A.T.</span>
-                    <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-[#B76E79]/50 uppercase">
+                    <span className="font-shat-main text-base sm:text-lg font-light tracking-[0.2em] text-white">S.H.A.T.</span>
+                    <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-500 uppercase">
                       ATTACK LINE // CINEMATIC SERIES
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[9px] sm:text-[10px] font-sans font-light tracking-[0.2em] sm:tracking-[0.3em] text-[#B76E79]/50 uppercase">
+                  <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[9px] sm:text-[10px] font-sans font-light tracking-[0.2em] sm:tracking-[0.3em] text-zinc-500 uppercase">
                     <button 
                       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} 
-                      className="hover:text-[#F2E6E9] transition-colors cursor-pointer"
+                      className="hover:text-white transition-colors cursor-pointer"
                     >
                       TOP ^
                     </button>
@@ -1812,11 +1812,11 @@ export default function App() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="w-full max-w-[320px] sm:max-w-[340px] p-5 sm:p-6 rounded-none bg-[#1B2A3E]/90 border border-[#B76E79]/25 shadow-2xl flex flex-col gap-3.5 backdrop-blur-md"
+                className="w-full max-w-[320px] sm:max-w-[340px] p-5 sm:p-6 rounded-none bg-[#141414]/95 border border-white/15 shadow-2xl flex flex-col gap-3.5 backdrop-blur-md"
               >
                 <div className="text-center">
-                  <span className="text-[8px] font-sans font-light tracking-[0.3em] text-[#B76E79]/80 uppercase block">SECURED INTERFACE</span>
-                  <h2 className="text-xl font-shat-main font-extralight tracking-[0.2em] text-[#F2E6E9] mt-1">S.H.A.T. LAUNCH</h2>
+                  <span className="text-[8px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase block">SECURED INTERFACE</span>
+                  <h2 className="text-xl font-shat-main font-extralight tracking-[0.2em] text-white mt-1">S.H.A.T. LAUNCH</h2>
                 </div>
 
                 <form onSubmit={handleAuthSubmit} className="space-y-2.5">
@@ -1826,51 +1826,51 @@ export default function App() {
                       animate={{ opacity: 1, height: "auto" }}
                       className="space-y-0.5"
                     >
-                      <label className="text-[8px] font-sans font-light tracking-wider text-[#E8D5B7]/80 block uppercase">Name</label>
+                      <label className="text-[8px] font-sans font-light tracking-wider text-zinc-400 block uppercase">Name</label>
                       <input 
                         type="text" 
                         required
                         value={authName}
                         onChange={(e) => setAuthName(e.target.value)}
                         placeholder="Atharva Patel"
-                        className="w-full px-3 py-2 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15 text-[11px] text-[#F2E6E9] placeholder-[#E8D5B7]/30 focus:outline-none focus:border-[#B76E79]/50 font-sans font-light min-h-[40px]"
+                        className="w-full px-3 py-2 rounded-none bg-[#0A0A0A] border border-white/15 text-[11px] text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 font-sans font-light min-h-[40px]"
                       />
                     </motion.div>
                   )}
 
                   <div className="space-y-0.5">
-                    <label className="text-[8px] font-sans font-light tracking-wider text-[#E8D5B7]/80 block uppercase">Email Address</label>
+                    <label className="text-[8px] font-sans font-light tracking-wider text-zinc-400 block uppercase">Email Address</label>
                     <input 
                       type="email" 
                       required
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
                       placeholder="email@example.com"
-                      className="w-full px-3 py-2 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15 text-[11px] text-[#F2E6E9] placeholder-[#E8D5B7]/30 focus:outline-none focus:border-[#B76E79]/50 font-sans font-light min-h-[40px]"
+                      className="w-full px-3 py-2 rounded-none bg-[#0A0A0A] border border-white/15 text-[11px] text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 font-sans font-light min-h-[40px]"
                     />
                   </div>
 
                   <div className="space-y-0.5">
-                    <label className="text-[8px] font-sans font-light tracking-wider text-[#E8D5B7]/80 block uppercase">Secret Password</label>
+                    <label className="text-[8px] font-sans font-light tracking-wider text-zinc-400 block uppercase">Secret Password</label>
                     <input 
                       type="password" 
                       required
                       value={authPassword}
                       onChange={(e) => setAuthPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full px-3 py-2 rounded-none bg-[#0D1B2A] border border-[#B76E79]/15 text-[11px] text-[#F2E6E9] placeholder-[#E8D5B7]/30 focus:outline-none focus:border-[#B76E79]/50 font-sans font-light min-h-[40px]"
+                      className="w-full px-3 py-2 rounded-none bg-[#0A0A0A] border border-white/15 text-[11px] text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 font-sans font-light min-h-[40px]"
                     />
                   </div>
 
                   {authError && (
-                    <div className="p-2 rounded-none bg-red-500/10 border border-red-500/20 text-red-500 font-sans font-light text-[8px] text-center uppercase tracking-wider">
+                    <div className="p-2 rounded-none bg-red-500/10 border border-red-500/20 text-red-400 font-sans font-light text-[8px] text-center uppercase tracking-wider">
                       {authError}
                     </div>
                   )}
 
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-none bg-[#B76E79] border-none text-[#0D1B2A] font-sans font-normal text-[9px] tracking-[0.3em] uppercase hover:bg-[#a25c67] transition-all duration-300 flex items-center justify-center gap-1.5 mt-1.5 shadow-lg shadow-[#B76E79]/5 cursor-pointer min-h-[44px]"
+                    className="w-full py-3 rounded-none bg-white border-none text-black font-sans font-semibold text-[9px] tracking-[0.3em] uppercase hover:bg-zinc-200 transition-all duration-300 flex items-center justify-center gap-1.5 mt-1.5 shadow-lg shadow-white/5 cursor-pointer min-h-[44px]"
                   >
                     <span>{isSignUp ? "INITIALIZE BINDING" : "ESTABLISH SESSION"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -1878,35 +1878,35 @@ export default function App() {
 
                   {/* Guest / Demo Bypass Option */}
                   <div className="relative flex py-1 items-center">
-                    <div className="flex-grow border-t border-[#B76E79]/10"></div>
-                    <span className="flex-shrink mx-2 text-[7px] text-[#B76E79]/40 uppercase tracking-widest font-sans font-light">OR</span>
-                    <div className="flex-grow border-t border-[#B76E79]/10"></div>
+                    <div className="flex-grow border-t border-white/10"></div>
+                    <span className="flex-shrink mx-2 text-[7px] text-zinc-500 uppercase tracking-widest font-sans font-light">OR</span>
+                    <div className="flex-grow border-t border-white/10"></div>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleGuestLogin}
-                    className="w-full py-3 rounded-none bg-transparent border border-[#B76E79]/25 text-[#E8D5B7]/80 hover:text-[#F2E6E9] hover:border-[#B76E79]/50 font-sans font-normal text-[9px] tracking-[0.2em] uppercase transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-sm group min-h-[44px]"
+                    className="w-full py-3 rounded-none bg-transparent border border-white/20 text-zinc-300 hover:text-white hover:border-white/50 font-sans font-normal text-[9px] tracking-[0.2em] uppercase transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-sm group min-h-[44px]"
                   >
                     <span>GUEST PASS / DEMO BYPASS</span>
-                    <Sparkles className="w-3.5 h-3.5 text-[#E8D5B7]/80 group-hover:text-[#F2E6E9]" />
+                    <Sparkles className="w-3.5 h-3.5 text-zinc-300 group-hover:text-white" />
                   </button>
                 </form>
 
-                <div className="text-center pt-2 border-t border-[#B76E79]/10 font-sans font-light text-[8px] tracking-wider">
+                <div className="text-center pt-2 border-t border-white/10 font-sans font-light text-[8px] tracking-wider">
                   <button 
                     onClick={() => setIsSignUp(!isSignUp)}
-                    className="text-[#F2E6E9] hover:underline font-bold uppercase cursor-pointer"
+                    className="text-white hover:underline font-bold uppercase cursor-pointer"
                   >
                     {isSignUp ? "ALREADY BOUND? LOGIN SECURELY" : "NEW SYSTEM ENTRY? REGISTER SIGN UP"}
                   </button>
                 </div>
 
                 {/* Back to Hero Option */}
-                <div className="text-center font-sans font-light text-[8px] text-[#E8D5B7]/80 tracking-wider">
+                <div className="text-center font-sans font-light text-[8px] text-zinc-400 tracking-wider">
                   <button 
                     onClick={() => setScreen("HERO")}
-                    className="hover:text-[#F2E6E9] uppercase cursor-pointer py-1 inline-block"
+                    className="hover:text-white uppercase cursor-pointer py-1 inline-block"
                   >
                     &larr; BACK TO SPECIFICATIONS
                   </button>
@@ -1954,7 +1954,7 @@ export default function App() {
 
               {/* WorkoutSplit Section */}
               <div className="w-full max-w-4xl mx-auto px-1 sm:px-0">
-                <h2 className="font-serif text-2xl sm:text-[32px] text-[#F2E6E9] mb-4 sm:mb-8 text-center sm:text-left" style={{ fontFamily: "serif" }}>
+                <h2 className="font-serif text-2xl sm:text-[32px] text-white mb-4 sm:mb-8 text-center sm:text-left" style={{ fontFamily: "serif" }}>
                   Build Your Split
                 </h2>
                 <WorkoutSplit />
@@ -1963,17 +1963,16 @@ export default function App() {
               {/* Ask SHAT AI Section */}
               <section 
                 id="ask-shat-ai" 
-                className="w-full max-w-[780px] mx-auto bg-transparent text-[#F2E6E9] px-4 py-8 sm:px-8 sm:py-14 md:px-14 md:py-20"
+                className="w-full max-w-[780px] mx-auto bg-transparent text-white px-4 py-8 sm:px-8 sm:py-14 md:px-14 md:py-20"
               >
                 <h2 
-                  className="text-2xl sm:text-3xl md:text-[36px] font-serif font-light text-[#F2E6E9] mb-2" 
+                  className="text-2xl sm:text-3xl md:text-[36px] font-serif font-light text-white mb-2" 
                   style={{ fontFamily: "serif" }}
                 >
                   Ask SHAT AI
                 </h2>
                 <p 
-                  className="font-sans text-xs sm:text-[14px] leading-relaxed mb-6 sm:mb-10" 
-                  style={{ color: "rgba(242,230,233,0.4)" }}
+                  className="font-sans text-xs sm:text-[14px] leading-relaxed mb-6 sm:mb-10 text-zinc-400" 
                 >
                   Science-backed answers. Personalised for you.
                 </p>

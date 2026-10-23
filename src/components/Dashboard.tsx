@@ -727,12 +727,12 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                   }}
                   className={`px-4 py-2 rounded-none border font-sans text-[9px] tracking-[0.2em] font-normal uppercase transition-all duration-300 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     checkInCompletedToday
-                      ? "border-[#B76E79]/55 bg-[#B76E79]/10 text-[#B76E79] hover:bg-[#B76E79]/20"
+                      ? "border-white/40 bg-white/10 text-white hover:bg-white/15"
                       : "border-white/20 bg-transparent text-[#A8A8A8] hover:border-white hover:text-white"
                   }`}
                 >
                   {checkInCompletedToday ? (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#B76E79]" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                   ) : (
                     <Calendar className="w-3.5 h-3.5" />
                   )}
@@ -823,17 +823,17 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                   onClick={() => { setCheckInStep(1); setShowCheckInModal(true); }}
                   className={`p-4 rounded-none border hover:border-white/20 flex flex-col items-center gap-2.5 transition-all duration-300 text-center group cursor-pointer ${
                     checkInCompletedToday
-                      ? "bg-[#B76E79]/5 border-[#B76E79]/30 hover:bg-[#B76E79]/10"
+                      ? "bg-white/10 border-white/30 hover:bg-white/15"
                       : "bg-[#0F0F0F] border border-white/6 hover:border-white/20"
                   }`}
                 >
                   {checkInCompletedToday ? (
-                    <CheckCircle2 className="w-5 h-5 text-[#B76E79] group-hover:scale-110 transition-transform duration-300" />
+                    <CheckCircle2 className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
                   ) : (
                     <Calendar className="w-5 h-5 text-[#A8A8A8] group-hover:text-white transition-colors duration-300" />
                   )}
                   <span className={`text-[10px] font-sans font-light tracking-wider uppercase transition-colors duration-300 ${
-                    checkInCompletedToday ? "text-[#B76E79]" : "text-white"
+                    checkInCompletedToday ? "text-white" : "text-[#A8A8A8]"
                   }`}>
                     {checkInCompletedToday ? "Check-in Done" : "Daily Check-in"}
                   </span>
@@ -1938,16 +1938,16 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
             initial={{ opacity: 0, y: -50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 bg-[#0D1B2A]/95 backdrop-blur-xl border border-[#B76E79] px-6 py-4 rounded-none shadow-2xl max-w-md w-[90vw]"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 bg-[#141414]/95 backdrop-blur-xl border border-white/20 px-6 py-4 rounded-none shadow-2xl max-w-md w-[90vw]"
           >
             {toast.type === "success" ? (
-              <CheckCircle2 className="w-5 h-5 text-[#B76E79] shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
             ) : toast.type === "error" ? (
-              <AlertCircle className="w-5 h-5 text-[#B76E79] shrink-0" />
+              <AlertCircle className="w-5 h-5 text-zinc-400 shrink-0" />
             ) : (
-              <Info className="w-5 h-5 text-[#E8D5B7] shrink-0" />
+              <Info className="w-5 h-5 text-zinc-400 shrink-0" />
             )}
-            <span className="font-sans text-xs text-[#F2E6E9] leading-relaxed uppercase tracking-wider">
+            <span className="font-sans text-xs text-white leading-relaxed uppercase tracking-wider">
               {toast.message}
             </span>
           </motion.div>

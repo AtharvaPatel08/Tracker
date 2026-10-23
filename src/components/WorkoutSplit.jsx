@@ -20,21 +20,21 @@ const ExerciseItem = memo(({
       onDragStart={() => onDragStart(index)}
       onDragOver={onDragOver}
       onDrop={() => onDrop(index)}
-      className="p-4 rounded-[10px] bg-[#0D1B2A]/70 border border-[#B76E79]/15 hover:border-[#B76E79]/30 transition-all duration-300 flex flex-col gap-3 relative group"
+      className="p-4 rounded-[10px] bg-[#121212] border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col gap-3 relative group"
     >
       {/* Drag handle & Delete */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="cursor-grab text-[#F2E6E9]/35 group-hover:text-[#B76E79] transition-colors">
+          <div className="cursor-grab text-zinc-500 group-hover:text-white transition-colors">
             <GripVertical className="w-4 h-4" />
           </div>
-          <span className="font-shat-heading text-base font-light text-[#F2E6E9] uppercase tracking-wide">
+          <span className="font-shat-heading text-base font-light text-white uppercase tracking-wide">
             {exercise.name}
           </span>
         </div>
         <button
           onClick={() => onDelete(exercise.id)}
-          className="text-[#B76E79]/50 hover:text-[#B76E79] transition-all p-1 cursor-pointer bg-transparent border-none"
+          className="text-zinc-500 hover:text-white transition-all p-1 cursor-pointer bg-transparent border-none"
           title="Delete Exercise"
         >
           <Trash2 className="w-4 h-4" />
@@ -44,31 +44,31 @@ const ExerciseItem = memo(({
       {/* Sets, Reps, Weight */}
       <div className="flex flex-wrap items-center gap-4 text-xs">
         <div className="flex items-center gap-2">
-          <span className="text-[#F2E6E9]/55 font-sans">Sets:</span>
+          <span className="text-zinc-400 font-sans">Sets:</span>
           <input
             type="number"
             min="1"
             max="15"
             value={exercise.sets}
             onChange={(e) => onUpdate(exercise.id, "sets", parseInt(e.target.value) || 0)}
-            className="w-[60px] py-1 bg-[#1B2A3E]/80 border border-[#B76E79]/30 rounded-lg text-[#F2E6E9] text-center outline-none focus:border-[#B76E79]"
+            className="w-[60px] py-1 bg-[#181818] border border-white/15 rounded-lg text-white text-center outline-none focus:border-white"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[#F2E6E9]/55 font-sans">Reps:</span>
+          <span className="text-zinc-400 font-sans">Reps:</span>
           <input
             type="number"
             min="1"
             max="100"
             value={exercise.reps}
             onChange={(e) => onUpdate(exercise.id, "reps", parseInt(e.target.value) || 0)}
-            className="w-[60px] py-1 bg-[#1B2A3E]/80 border border-[#B76E79]/30 rounded-lg text-[#F2E6E9] text-center outline-none focus:border-[#B76E79]"
+            className="w-[60px] py-1 bg-[#181818] border border-white/15 rounded-lg text-white text-center outline-none focus:border-white"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[#F2E6E9]/55 font-sans">Weight:</span>
+          <span className="text-zinc-400 font-sans">Weight:</span>
           <input
             type="number"
             min="0"
@@ -76,9 +76,9 @@ const ExerciseItem = memo(({
             step="0.5"
             value={exercise.weight}
             onChange={(e) => onUpdate(exercise.id, "weight", parseFloat(e.target.value) || 0)}
-            className="w-[60px] py-1 bg-[#1B2A3E]/80 border border-[#B76E79]/30 rounded-lg text-[#F2E6E9] text-center outline-none focus:border-[#B76E79]"
+            className="w-[60px] py-1 bg-[#181818] border border-white/15 rounded-lg text-white text-center outline-none focus:border-white"
           />
-          <span className="text-[#F2E6E9]/45 font-sans">kg</span>
+          <span className="text-zinc-400 font-sans">kg</span>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ const ExerciseItem = memo(({
           value={exercise.notes || ""}
           onChange={(e) => onUpdate(exercise.id, "notes", e.target.value)}
           placeholder="Add special setup, rest times or progression notes..."
-          className="w-full px-3 py-1.5 bg-[#1B2A3E]/40 border border-[#B76E79]/15 rounded-md text-[#F2E6E9]/85 text-xs outline-none focus:border-[#B76E79]/45 placeholder-[#F2E6E9]/25 font-sans"
+          className="w-full px-3 py-1.5 bg-[#181818] border border-white/10 rounded-md text-zinc-200 text-xs outline-none focus:border-white/30 placeholder-zinc-600 font-sans"
         />
       </div>
     </div>
@@ -402,9 +402,9 @@ export default function WorkoutSplit() {
 
   if (loading) {
     return (
-      <div className="w-full max-w-4xl mx-auto p-12 bg-[#1B2A3E] rounded-[14px] border border-[#B76E79]/25 flex flex-col items-center justify-center">
-        <div className="w-10 h-10 rounded-full border-2 border-[#B76E79] border-t-transparent animate-spin mb-4" />
-        <p className="text-sm font-sans tracking-widest uppercase text-[#F2E6E9]/65">Assembling workout matrix...</p>
+      <div className="w-full max-w-4xl mx-auto p-12 bg-[#141414] rounded-[14px] border border-white/10 flex flex-col items-center justify-center">
+        <div className="w-10 h-10 rounded-full border-2 border-white border-t-transparent animate-spin mb-4" />
+        <p className="text-sm font-sans tracking-widest uppercase text-zinc-400">Assembling workout matrix...</p>
       </div>
     );
   }
@@ -422,10 +422,10 @@ export default function WorkoutSplit() {
   }, {});
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-8 bg-[#1B2A3E] rounded-[14px] border border-[#B76E79]/25 relative flex flex-col gap-6 sm:gap-8 shadow-2xl">
-      {/* Step 1: Split Type Pills */}
+    <div className="w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-8 bg-[#141414] rounded-[14px] border border-white/10 relative flex flex-col gap-6 sm:gap-8 shadow-2xl">
+      {/* Step 1: Split Type Buttons */}
       <div className="flex flex-col gap-3">
-        <span className="text-[11px] font-sans font-semibold tracking-widest text-[#B76E79] uppercase">
+        <span className="text-[11px] font-sans font-semibold tracking-widest text-zinc-300 uppercase">
           Step 1 &mdash; Choose Split System
         </span>
         <div className="flex flex-wrap gap-2.5">
@@ -435,8 +435,8 @@ export default function WorkoutSplit() {
               onClick={() => handleSplitTypeChange(type)}
               className={`px-4 py-2 text-[13px] font-sans font-medium uppercase tracking-wider transition-all duration-300 rounded-[20px] cursor-pointer ${
                 splitType === type
-                  ? "bg-[#B76E79] text-[#0D1B2A] border-none"
-                  : "bg-[#1B2A3E] border border-[#B76E79] text-[#F2E6E9] hover:bg-[#B76E79]/10"
+                  ? "bg-white text-black font-semibold border-none"
+                  : "bg-[#181818] border border-white/15 text-zinc-300 hover:bg-white/10 hover:text-white"
               }`}
             >
               {type}
@@ -448,13 +448,13 @@ export default function WorkoutSplit() {
       {/* Step 2: Training Day Names (Tab bar horizontal scroll) */}
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center">
-          <span className="text-[11px] font-sans font-semibold tracking-widest text-[#B76E79] uppercase">
+          <span className="text-[11px] font-sans font-semibold tracking-widest text-zinc-300 uppercase">
             Step 2 &mdash; Manage Training Days
           </span>
           {splitType === "Custom" && (
             <button
               onClick={handleAddCustomDay}
-              className="text-[11px] font-sans text-[#B76E79] uppercase hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-[11px] font-sans text-white uppercase hover:underline flex items-center gap-1 cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" /> Add Day
             </button>
@@ -462,7 +462,7 @@ export default function WorkoutSplit() {
         </div>
 
         {/* Tab row */}
-        <div className="flex overflow-x-auto pb-2 border-b border-[#B76E79]/15 scrollbar-thin scrollbar-thumb-[#B76E79]/30">
+        <div className="flex overflow-x-auto pb-2 border-b border-white/10 scrollbar-thin scrollbar-thumb-white/20">
           <div className="flex gap-6 min-w-max px-1">
             {days.map(day => (
               <button
@@ -470,15 +470,15 @@ export default function WorkoutSplit() {
                 onClick={() => setActiveTabId(day.id)}
                 className={`pb-2.5 text-sm font-medium tracking-wide transition-all duration-300 relative cursor-pointer ${
                   activeTabId === day.id
-                    ? "text-[#F2E6E9]"
-                    : "text-[#F2E6E9]/35 hover:text-[#F2E6E9]/60"
+                    ? "text-white"
+                    : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >
                 {day.name || "Unnamed Day"}
                 {activeTabId === day.id && (
                   <motion.div
                     layoutId="activeTabUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B76E79]"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-white"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -490,12 +490,12 @@ export default function WorkoutSplit() {
         {/* Rename Input */}
         {activeDay && (
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2">
-            <span className="text-[11px] font-sans uppercase text-[#F2E6E9]/45 whitespace-nowrap">Rename Active Day:</span>
+            <span className="text-[11px] font-sans uppercase text-zinc-400 whitespace-nowrap">Rename Active Day:</span>
             <input
               type="text"
               value={activeDay.name}
               onChange={(e) => handleDayNameChange(activeDay.id, e.target.value)}
-              className="flex-1 bg-transparent border-b border-[#B76E79] focus:border-[#B76E79] text-[#F2E6E9] outline-none py-1 text-sm font-sans tracking-wide"
+              className="flex-1 bg-transparent border-b border-zinc-600 focus:border-white text-white outline-none py-1 text-sm font-sans tracking-wide"
               placeholder="e.g. Chest & Triceps"
             />
             {splitType === "Custom" && days.length > 1 && (
@@ -512,11 +512,11 @@ export default function WorkoutSplit() {
 
       {/* Step 3: Exercise Entry List */}
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between items-center border-b border-[#B76E79]/10 pb-2">
-          <span className="text-[11px] font-sans font-semibold tracking-widest text-[#B76E79] uppercase">
+        <div className="flex justify-between items-center border-b border-white/10 pb-2">
+          <span className="text-[11px] font-sans font-semibold tracking-widest text-zinc-300 uppercase">
             Step 3 &mdash; Add & Reorder Exercises
           </span>
-          <span className="text-[10px] font-sans text-[#F2E6E9]/45 italic">
+          <span className="text-[10px] font-sans text-zinc-500 italic">
             * Drag elements to custom order
           </span>
         </div>
@@ -546,9 +546,9 @@ export default function WorkoutSplit() {
                   />
                 ))
               ) : (
-                <div className="py-8 text-center bg-[#0D1B2A]/30 border border-[#B76E79]/10 rounded-[10px] flex flex-col items-center justify-center gap-1.5">
-                  <span className="text-xs font-sans text-[#F2E6E9]/45 uppercase tracking-wider">No exercises logged for this day</span>
-                  <span className="text-[10px] font-sans text-[#B76E79]/55 uppercase">Unleash the split builder below</span>
+                <div className="py-8 text-center bg-[#0A0A0A]/60 border border-white/10 rounded-[10px] flex flex-col items-center justify-center gap-1.5">
+                  <span className="text-xs font-sans text-zinc-400 uppercase tracking-wider">No exercises logged for this day</span>
+                  <span className="text-[10px] font-sans text-zinc-500 uppercase">Unleash the split builder below</span>
                 </div>
               )}
             </motion.div>
@@ -560,20 +560,20 @@ export default function WorkoutSplit() {
           {!showPicker ? (
             <button
               onClick={() => setShowPicker(true)}
-              className="px-6 py-3 border border-dashed border-[#B76E79]/45 hover:border-[#B76E79] text-[#B76E79] hover:text-[#F2E6E9] font-sans text-xs uppercase tracking-widest transition-all duration-300 rounded-[10px] flex items-center gap-2 cursor-pointer bg-transparent"
+              className="px-6 py-3 border border-dashed border-white/20 hover:border-white text-zinc-300 hover:text-white font-sans text-xs uppercase tracking-widest transition-all duration-300 rounded-[10px] flex items-center gap-2 cursor-pointer bg-transparent"
             >
               <Plus className="w-4 h-4" /> Add Exercise
             </button>
           ) : (
-            <div className="w-full p-5 bg-[#0D1B2A] border border-[#B76E79]/30 rounded-[14px] flex flex-col gap-4 animate-fadeIn">
+            <div className="w-full p-5 bg-[#121212] border border-white/15 rounded-[14px] flex flex-col gap-4 animate-fadeIn">
               {/* Picker sub-tabs */}
-              <div className="flex gap-3 justify-center border-b border-[#B76E79]/15 pb-3">
+              <div className="flex gap-3 justify-center border-b border-white/10 pb-3">
                 <button
                   onClick={() => setPickerTab("search")}
                   className={`px-4 py-1.5 text-xs uppercase tracking-wider font-sans rounded-full transition-all cursor-pointer ${
                     pickerTab === "search"
-                      ? "bg-[#B76E79] text-[#0D1B2A]"
-                      : "text-[#F2E6E9]/50 hover:text-[#F2E6E9]"
+                      ? "bg-white text-black font-semibold"
+                      : "text-zinc-400 hover:text-white"
                   }`}
                 >
                   Search Exercise
@@ -582,8 +582,8 @@ export default function WorkoutSplit() {
                   onClick={() => setPickerTab("custom")}
                   className={`px-4 py-1.5 text-xs uppercase tracking-wider font-sans rounded-full transition-all cursor-pointer ${
                     pickerTab === "custom"
-                      ? "bg-[#B76E79] text-[#0D1B2A]"
-                      : "text-[#F2E6E9]/50 hover:text-[#F2E6E9]"
+                      ? "bg-white text-black font-semibold"
+                      : "text-zinc-400 hover:text-white"
                   }`}
                 >
                   Custom Exercise
@@ -600,8 +600,8 @@ export default function WorkoutSplit() {
                         onClick={() => setMuscleFilter(cat)}
                         className={`px-2.5 py-1 text-[10px] font-sans uppercase tracking-wider rounded-md transition-all cursor-pointer ${
                           muscleFilter === cat
-                            ? "bg-[#B76E79] text-[#0D1B2A]"
-                            : "bg-[#1B2A3E] border border-[#B76E79]/20 text-[#F2E6E9]/65 hover:bg-[#B76E79]/10"
+                            ? "bg-white text-black font-semibold"
+                            : "bg-[#181818] border border-white/10 text-zinc-400 hover:bg-white/10 hover:text-white"
                         }`}
                       >
                         {cat}
@@ -611,13 +611,13 @@ export default function WorkoutSplit() {
 
                   {/* Search Bar */}
                   <div className="relative">
-                    <Search className="absolute left-3 top-2.5 w-4 h-4 text-[#F2E6E9]/35" />
+                    <Search className="absolute left-3 top-2.5 w-4 h-4 text-zinc-500" />
                     <input
                       type="text"
                       placeholder="Type to filter exercises..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2 bg-[#1B2A3E] border border-[#B76E79]/20 rounded-md text-sm outline-none text-[#F2E6E9] focus:border-[#B76E79]/50 placeholder-[#F2E6E9]/25 font-sans"
+                      className="w-full pl-9 pr-4 py-2 bg-[#181818] border border-white/10 rounded-md text-sm outline-none text-white focus:border-white/30 placeholder-zinc-600 font-sans"
                     />
                   </div>
 
@@ -626,7 +626,7 @@ export default function WorkoutSplit() {
                     {Object.entries(filteredCategories).length > 0 ? (
                       Object.entries(filteredCategories).map(([category, list]) => (
                         <div key={category} className="flex flex-col gap-1.5">
-                          <span className="text-[10px] font-sans uppercase text-[#B76E79]/75 tracking-widest font-semibold border-b border-[#B76E79]/10 pb-0.5">
+                          <span className="text-[10px] font-sans uppercase text-zinc-400 tracking-widest font-semibold border-b border-white/10 pb-0.5">
                             {category}
                           </span>
                           <div className="flex flex-wrap gap-1.5">
@@ -634,7 +634,7 @@ export default function WorkoutSplit() {
                               <button
                                 key={ex}
                                 onClick={() => handleAddExercise(ex)}
-                                className="px-2.5 py-1 text-xs font-sans rounded-full bg-[#1B2A3E] border border-[#B76E79]/25 hover:border-[#B76E79] text-[#F2E6E9]/85 hover:text-[#F2E6E9] transition-all cursor-pointer"
+                                className="px-2.5 py-1 text-xs font-sans rounded-full bg-[#181818] border border-white/10 hover:border-white text-zinc-300 hover:text-white transition-all cursor-pointer"
                               >
                                 {ex}
                               </button>
@@ -643,24 +643,24 @@ export default function WorkoutSplit() {
                         </div>
                       ))
                     ) : (
-                      <span className="text-center text-xs font-sans text-[#F2E6E9]/35 uppercase py-4">No exercises matched your search query</span>
+                      <span className="text-center text-xs font-sans text-zinc-500 uppercase py-4">No exercises matched your search query</span>
                     )}
                   </div>
                 </div>
               ) : (
                 <div className="flex flex-col gap-3.5">
-                  <span className="text-xs uppercase text-[#F2E6E9]/55 font-sans tracking-wide">Enter custom exercise name:</span>
+                  <span className="text-xs uppercase text-zinc-400 font-sans tracking-wide">Enter custom exercise name:</span>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="e.g. Incline Machine Chest Press"
                       value={customExerciseName}
                       onChange={(e) => setCustomExerciseName(e.target.value)}
-                      className="flex-1 px-3 py-2 bg-[#1B2A3E] border border-[#B76E79]/20 rounded-md text-sm outline-none text-[#F2E6E9] focus:border-[#B76E79]/50 placeholder-[#F2E6E9]/25 font-sans"
+                      className="flex-1 px-3 py-2 bg-[#181818] border border-white/10 rounded-md text-sm outline-none text-white focus:border-white/30 placeholder-zinc-600 font-sans"
                     />
                     <button
                       onClick={() => handleAddExercise(customExerciseName)}
-                      className="px-4 py-2 bg-[#B76E79] text-[#0D1B2A] rounded-md font-sans text-xs uppercase tracking-wider font-semibold cursor-pointer"
+                      className="px-4 py-2 bg-white text-black rounded-md font-sans text-xs uppercase tracking-wider font-semibold cursor-pointer hover:bg-zinc-200"
                     >
                       Add
                     </button>
@@ -670,7 +670,7 @@ export default function WorkoutSplit() {
 
               <button
                 onClick={() => setShowPicker(false)}
-                className="text-[11px] font-sans text-[#F2E6E9]/45 hover:text-[#F2E6E9] text-center uppercase tracking-widest mt-2 cursor-pointer bg-transparent border-none"
+                className="text-[11px] font-sans text-zinc-500 hover:text-white text-center uppercase tracking-widest mt-2 cursor-pointer bg-transparent border-none"
               >
                 Cancel / Hide
               </button>
@@ -680,18 +680,18 @@ export default function WorkoutSplit() {
       </div>
 
       {/* Split Summary View */}
-      <div className="mt-4 p-5 rounded-[10px] bg-[#0D1B2A]/50 border border-[#B76E79]/15 flex flex-col gap-5">
-        <h3 className="text-base text-[#F2E6E9] tracking-wide uppercase font-shat-heading text-[18px]">
+      <div className="mt-4 p-5 rounded-[10px] bg-[#121212] border border-white/10 flex flex-col gap-5">
+        <h3 className="text-base text-white tracking-wide uppercase font-shat-heading text-[18px]">
           Your Full Split Summary
         </h3>
-        <div className="flex flex-col gap-2 border-t border-[#B76E79]/10 pt-2.5">
+        <div className="flex flex-col gap-2 border-t border-white/10 pt-2.5">
           {days.map(day => {
             const exerciseCount = day.exercises ? day.exercises.length : 0;
             const totalSets = day.exercises ? day.exercises.reduce((sum, ex) => sum + (ex.sets || 0), 0) : 0;
             return (
-              <div key={day.id} className="flex justify-between items-center text-[13px] text-[#F2E6E9]/55 font-sans">
-                <span className="font-medium text-[#F2E6E9]/75 uppercase tracking-wide">{day.name}</span>
-                <span className="text-[#F2E6E9]/45">
+              <div key={day.id} className="flex justify-between items-center text-[13px] text-zinc-400 font-sans">
+                <span className="font-medium text-zinc-200 uppercase tracking-wide">{day.name}</span>
+                <span className="text-zinc-500">
                   {exerciseCount} Exercise{exerciseCount !== 1 ? "s" : ""} &bull; {totalSets} Total Set{totalSets !== 1 ? "s" : ""}
                 </span>
               </div>
@@ -704,10 +704,10 @@ export default function WorkoutSplit() {
       </div>
 
       {/* Save Button */}
-      <div className="flex justify-center border-t border-[#B76E79]/10 pt-6">
+      <div className="flex justify-center border-t border-white/10 pt-6">
         <button
           onClick={handleSaveSplit}
-          className="px-8 py-3.5 bg-[#B76E79] text-[#0D1B2A] font-sans text-sm font-semibold uppercase tracking-widest transition-all duration-300 rounded-[10px] shadow-lg shadow-[#B76E79]/10 hover:shadow-[#B76E79]/20 hover:scale-[1.02] cursor-pointer"
+          className="px-8 py-3.5 bg-white text-black font-sans text-sm font-semibold uppercase tracking-widest transition-all duration-300 rounded-[10px] shadow-lg shadow-white/5 hover:bg-zinc-200 hover:scale-[1.02] cursor-pointer"
         >
           Save Split System
         </button>
@@ -715,8 +715,8 @@ export default function WorkoutSplit() {
 
       {/* Embedded Toast message */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-[#B76E79] text-[#0D1B2A] rounded-full text-xs font-sans font-semibold tracking-wider uppercase shadow-xl flex items-center gap-2 z-50 animate-bounce">
-          <CheckCircle className="w-4 h-4" />
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-white text-black rounded-full text-xs font-sans font-semibold tracking-wider uppercase shadow-2xl flex items-center gap-2 z-50">
+          <CheckCircle className="w-4 h-4 text-black" />
           <span>{toast}</span>
         </div>
       )}

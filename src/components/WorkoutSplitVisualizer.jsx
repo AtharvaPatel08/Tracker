@@ -59,17 +59,17 @@ const getMuscleGroup = (exerciseName) => {
   return "OTHER";
 };
 
-// Luxurious, coordinated brand colors matching #B76E79 (Rose Gold) and luxurious dark blue
+// Monochromatic matte black and white color scale
 const COLORS = {
-  CHEST: "#B76E79",       // Rose Gold Accent
-  BACK: "#E6C5C8",        // Light Blush
-  SHOULDERS: "#D4A3A9",   // Medium Blush
-  BICEPS: "#9E5661",      // Deep Rose
-  TRICEPS: "#803D47",      // Dark Crimson Rose
-  LEGS: "#5C2A31",        // Deep Burgundy
-  CORE: "#F2E6E9",        // Cream Blush Soft text color
-  CARDIO: "#D68E98",      // Warm Rose
-  OTHER: "#42181E"        // Darkest shadow Rose
+  CHEST: "#FFFFFF",       // Crisp Pure White
+  BACK: "#E4E4E7",        // Bright Silver Zinc
+  SHOULDERS: "#D4D4D8",   // Light Zinc
+  BICEPS: "#A1A1AA",      // Silver Zinc
+  TRICEPS: "#71717A",     // Medium Slate
+  LEGS: "#52525B",        // Dark Slate Zinc
+  CORE: "#F4F4F5",        // Off-White
+  CARDIO: "#9CA3AF",      // Cool Gray
+  OTHER: "#3F3F46"        // Deep Charcoal
 };
 
 export default function WorkoutSplitVisualizer({ days }) {
@@ -123,13 +123,13 @@ export default function WorkoutSplitVisualizer({ days }) {
 
   if (chartData.totalSets === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-6 border border-[#B76E79]/15 rounded-[10px] bg-[#0D1B2A]/30 text-center gap-2">
-        <div className="w-16 h-16 rounded-full border border-dashed border-[#B76E79]/30 flex items-center justify-center text-[#B76E79]/60 text-lg">
+      <div className="flex flex-col items-center justify-center p-6 border border-white/10 rounded-[10px] bg-[#141414] text-center gap-2">
+        <div className="w-16 h-16 rounded-full border border-dashed border-white/20 flex items-center justify-center text-zinc-400 text-lg">
           📊
         </div>
         <div>
-          <h4 className="text-xs font-sans font-semibold tracking-widest text-[#B76E79] uppercase">Weekly Distribution Chart</h4>
-          <p className="text-[11px] text-[#F2E6E9]/45 mt-1 max-w-xs font-sans leading-relaxed">
+          <h4 className="text-xs font-sans font-semibold tracking-widest text-white uppercase">Weekly Distribution Chart</h4>
+          <p className="text-[11px] text-zinc-400 mt-1 max-w-xs font-sans leading-relaxed">
             Add exercises to view a beautiful dynamic breakdown of your target muscle groups.
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function WorkoutSplitVisualizer({ days }) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 p-4 sm:p-6 border border-[#B76E79]/20 rounded-[14px] bg-[#0D1B2A]/40 shadow-inner">
+    <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 p-4 sm:p-6 border border-white/10 rounded-[14px] bg-[#141414] shadow-2xl">
       {/* SVG Chart */}
       <div className="relative w-[180px] h-[180px] flex-shrink-0">
         <svg width={width} height={height} className="overflow-visible">
@@ -150,7 +150,7 @@ export default function WorkoutSplitVisualizer({ days }) {
                   key={i}
                   d={isHovered ? arcHoverGenerator(slice) : arcGenerator(slice)}
                   fill={slice.data.color}
-                  className="transition-all duration-300 cursor-pointer filter hover:drop-shadow-[0_0_8px_rgba(183,110,121,0.5)]"
+                  className="transition-all duration-300 cursor-pointer filter hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                   onMouseEnter={() => setHoveredSegment(slice.data.name)}
                   onMouseLeave={() => setHoveredSegment(null)}
                 />
@@ -161,10 +161,10 @@ export default function WorkoutSplitVisualizer({ days }) {
 
         {/* Center label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-2xl font-light text-[#F2E6E9] tracking-tighter font-serif">
+          <span className="text-2xl font-light text-white tracking-tighter font-serif">
             {chartData.totalSets}
           </span>
-          <span className="text-[9px] font-sans tracking-widest uppercase text-[#B76E79]">
+          <span className="text-[9px] font-sans tracking-widest uppercase text-zinc-400">
             Total Sets
           </span>
         </div>
@@ -172,9 +172,9 @@ export default function WorkoutSplitVisualizer({ days }) {
 
       {/* Legend & Details */}
       <div className="flex-1 flex flex-col gap-3.5 w-full">
-        <div className="flex justify-between items-center border-b border-[#B76E79]/15 pb-1.5">
-          <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#B76E79]">Muscle Group Volume</span>
-          <span className="text-[10px] font-sans text-[#F2E6E9]/45 uppercase">Sets Contribution</span>
+        <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
+          <span className="text-xs font-sans font-bold uppercase tracking-widest text-white">Muscle Group Volume</span>
+          <span className="text-[10px] font-sans text-zinc-400 uppercase">Sets Contribution</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
@@ -184,7 +184,7 @@ export default function WorkoutSplitVisualizer({ days }) {
               <div
                 key={item.name}
                 className={`flex items-center justify-between p-1.5 rounded-lg transition-all duration-300 ${
-                  isHovered ? "bg-[#B76E79]/10 scale-[1.02]" : "bg-transparent"
+                  isHovered ? "bg-white/10 scale-[1.02]" : "bg-transparent"
                 }`}
                 onMouseEnter={() => setHoveredSegment(item.name)}
                 onMouseLeave={() => setHoveredSegment(null)}
@@ -194,15 +194,15 @@ export default function WorkoutSplitVisualizer({ days }) {
                     className="w-2.5 h-2.5 rounded-full shadow-sm"
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-xs font-sans uppercase font-medium text-[#F2E6E9]/80 tracking-wider">
+                  <span className="text-xs font-sans uppercase font-medium text-zinc-200 tracking-wider">
                     {item.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-sans font-semibold text-[#F2E6E9]">
-                    {item.value} <span className="text-[10px] font-normal text-[#F2E6E9]/45">sets</span>
+                  <span className="text-xs font-sans font-semibold text-white">
+                    {item.value} <span className="text-[10px] font-normal text-zinc-400">sets</span>
                   </span>
-                  <span className="text-[10px] font-mono text-[#B76E79]/70 bg-[#B76E79]/5 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] font-mono text-zinc-300 bg-white/10 px-1.5 py-0.5 rounded">
                     {item.percentage}%
                   </span>
                 </div>
