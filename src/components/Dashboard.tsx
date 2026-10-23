@@ -20,6 +20,7 @@ import {
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../lib/firebase";
 import AnimatedList from "./AnimatedList/AnimatedList";
+import FitnessChat from "./FitnessChat";
 
 const getLocalDateString = (d = new Date()) => {
   const year = d.getFullYear();
@@ -41,22 +42,11 @@ interface DashboardProps {
 
 export default function Dashboard({ profile, onUpdateProfile, onLogout }: DashboardProps) {
   const [activeTab, setActiveTab] = useState<string>("HOME");
-  const [streak, setStreak] = useState<number>(3); // Initial 3 days streak
+  const [streak, setStreak] = useState<number>(0);
   const [streakMessage, setStreakMessage] = useState<string>("");
   
   // Todays logged macros
-  const [loggedMeals, setLoggedMeals] = useState<LoggedMeal[]>([
-    {
-      id: "m1",
-      name: "4 Egg Whites + 2 Whole Eggs + 2 Rotis + 1 cup Chai (no sugar)",
-      protein: 28,
-      calories: 380,
-      carbs: 36,
-      fats: 11,
-      mealType: "Breakfast",
-      loggedAt: "08:30 AM"
-    }
-  ]);
+  const [loggedMeals, setLoggedMeals] = useState<LoggedMeal[]>([]);
   
   // Custom meal input state
   const [customMealName, setCustomMealName] = useState("");
@@ -103,7 +93,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
   const [showMapsFeedback, setShowMapsFeedback] = useState(false);
 
   // Water incrementer
-  const [waterGlasses, setWaterGlasses] = useState(5);
+  const [waterGlasses, setWaterGlasses] = useState(0);
 
   // Badges state
   const [badges, setBadges] = useState<Badge[]>(BADGES_LIST);
@@ -658,7 +648,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               { id: "SUPPLEMENTS", label: "Supplements", icon: ShoppingBag },
               { id: "PROGRESS", label: "My Progress", icon: Award },
               ...(profile.hasActiveCycle && profile.gender === "Female" ? [{ id: "CYCLE_TRACKER", label: "Cycle Tracker", icon: Heart }] : []),
-              { id: "ASK_SHAT_AI", label: "Ask SHAT AI", icon: Sparkles, isScroll: true },
+              { id: "ASK_SHAT_AI", label: "Ask SHAT AI", icon: Sparkles },
               { id: "SETTINGS", label: "Settings", icon: Settings }
             ].map((item) => {
               const Icon = item.icon;
@@ -667,13 +657,9 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                 <button
                   key={item.id}
                   onClick={() => {
-                    if (item.isScroll) {
-                      document.getElementById("ask-shat-ai")?.scrollIntoView({ behavior: "smooth" });
-                    } else {
-                      setActiveTab(item.id);
-                      // End active zero excuse workout if leaving tab
-                      if (activeTab === "WORKOUT") setActiveZeWorkout(false);
-                    }
+                    setActiveTab(item.id);
+                    // End active zero excuse workout if leaving tab
+                    if (activeTab === "WORKOUT") setActiveZeWorkout(false);
                   }}
                   className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 rounded-none text-[11px] md:text-xs font-sans tracking-[0.15em] md:tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer shrink-0 whitespace-nowrap ${
                     isActive 
@@ -1741,6 +1727,29 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                 </p>
               </div>
 
+            </motion.div>
+          )}
+
+          {/* TAB 8: ASK SHAT AI (GEMINI CHATBOT) */}
+          {activeTab === "ASK_SHAT_AI" && (
+            <motion.div 
+              key="ASK_SHAT_AI" 
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              className="space-y-6"
+            >
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
+                <div>
+                  <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">INTELLIGENT KINETICS // AI CORE</span>
+                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">ASK SHAT AI</h2>
+                </div>
+                <span className="text-[9px] font-sans font-light text-[#555555] uppercase tracking-widest">
+                  GEMINI 3.8 FLASH GROUNDED
+                </span>
+              </div>
+
+              <FitnessChat />
             </motion.div>
           )}
 

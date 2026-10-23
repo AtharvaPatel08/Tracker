@@ -41,7 +41,7 @@ export const BADGES_LIST: Badge[] = [
     title: "Tandoor Champion",
     description: "Hit your daily protein target 7 days straight",
     icon: "🍗",
-    unlocked: true
+    unlocked: false
   },
   {
     id: "sharma",
@@ -55,7 +55,7 @@ export const BADGES_LIST: Badge[] = [
     title: "Zero Excuse Mode",
     description: "Completed 15-minute home workout with no equipment 5 days",
     icon: "⚡",
-    unlocked: true
+    unlocked: false
   },
   {
     id: "macro_maestro",

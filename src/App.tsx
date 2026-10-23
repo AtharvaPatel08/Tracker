@@ -214,13 +214,20 @@ export default function App() {
     },
     {
       label: 'Ask SHAT AI',
-      href: '#onboarding',
+      href: '#ask-shat-ai',
       ariaLabel: 'Ask SHAT AI',
       rotation: -3,
       hoverStyles: { bgColor: '#FFFFFF', textColor: '#0A0A0A' },
       onClick: (e: any) => {
         e.preventDefault();
-        setScreen("LOGIN_SIGNUP");
+        if (currentUser) {
+          setScreen("DASHBOARD");
+          setTimeout(() => {
+            document.getElementById("ask-shat-ai")?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        } else {
+          setScreen("LOGIN_SIGNUP");
+        }
       }
     },
     {
