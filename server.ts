@@ -52,10 +52,11 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-    // Format the system instruction to align with SHAT Coach voice
+    // Format the system instruction to align with SCRTH Coach voice
     const systemInstruction = 
-      "You are the SHAT Coach, an elegant, supportive, and compassionate fitness and wellness companion. " +
-      "Provide gentle, helpful, and highly insightful responses to wellbeing, fitness, or cycle queries. " +
+      "You are the SCRTH Coach, an intelligent, modern, and disciplined personal growth and wellness mentor. " +
+      "The SCRTH platform represents starting fresh, understanding yourself, breaking old habits, and building a better version of yourself through intentional action. Tagline: START FROM SCRATCH. " +
+      "Provide gentle, helpful, and highly insightful responses to wellbeing, fitness, discipline, or cycle queries. " +
       "Include self-reflection prompts, positive breathing methods, and clear advice. " +
       "Use clean markdown with bullet points for readability.";
 
@@ -80,7 +81,7 @@ app.post("/api/chat", async (req, res) => {
 });
 
 // API endpoint for Fitness Chat (Gemini grounded with a specific fitness expert persona)
-function generateFallbackShatResponse(message: string): string {
+function generateFallbackScrthResponse(message: string): string {
   const q = (message || "").toLowerCase();
   if (q.includes("protein") || q.includes("veg") || q.includes("paneer") || q.includes("dal") || q.includes("soya")) {
     return "For optimal muscle protein synthesis, aim for 1.6g to 2.2g of protein per kg of bodyweight daily. On a vegetarian or Indian diet, combine high-bioavailability staples: low-fat paneer (18g protein / 100g), soya chunks (52g protein / 100g), double-toned milk, Greek yogurt/hung curd, and whey isolate to ensure a complete essential amino acid profile with adequate leucine (>2.7g per meal).\n\nAction today: Audit your total protein intake today and ensure your post-workout meal contains at least 30g of complete protein.";
@@ -97,7 +98,7 @@ function generateFallbackShatResponse(message: string): string {
   if (q.includes("sleep") || q.includes("recover") || q.includes("sore") || q.includes("doms") || q.includes("rest")) {
     return "Muscular remodeling and central nervous system replenishment occur during slow-wave and REM sleep. Aim for 7.5 to 9 hours of quality sleep nightly. Delayed Onset Muscle Soreness (DOMS) reflects microscopic muscle damage and inflammation, not necessarily the degree of growth. Active recovery like 20 minutes of brisk walking promotes blood flow and accelerates metabolic waste clearance.\n\nAction today: Set your bedroom temperature between 18–20°C and disconnect from screens 45 minutes before sleep tonight.";
   }
-  return "Science, Honesty, Adaptation, and Transformation are the foundational pillars of the SHAT system. For your goal, prioritize measurable progressive overload, precision calorie and protein tracking, and strict recovery protocols. Vague intentions produce vague results—track every variable objectively.\n\nAction today: Log your daily meals right now and write down the exact weights and rep targets for your next workout.";
+  return "Self-awareness, discipline, and continuous improvement are the foundational pillars of the SCRTH system. START FROM SCRATCH. For your goal, prioritize measurable progressive overload, precision calorie and protein tracking, and strict recovery protocols. Vague intentions produce vague results—track every variable objectively.\n\nAction today: Log your daily meals right now and write down the exact weights and rep targets for your next workout.";
 }
 
 // API endpoint for Fitness Chat (Gemini grounded with a specific fitness expert persona)
@@ -109,8 +110,9 @@ app.post("/api/fitness-chat", async (req, res) => {
     }
 
     const systemPrompt = 
-      "You are SHAT AI — the intelligent core of the SHAT platform (Science, Honesty, " +
-      "Adaptation, Transformation). You are a world-class fitness and nutrition expert. " +
+      "You are SCRTH AI — the intelligent core of the SCRTH platform (START FROM SCRATCH). " +
+      "SCRTH represents starting fresh, understanding yourself, breaking old habits, and building a better version of yourself through intentional action. " +
+      "You are a world-class fitness and nutrition expert. " +
       "Give precise, science-backed, actionable answers on workouts, nutrition, fat loss, " +
       "muscle building, recovery, and supplements. Be concise and direct. Never be vague. " +
       "Understand Indian dietary habits, vegetarian protein sources, and the " +
@@ -192,15 +194,15 @@ app.post("/api/fitness-chat", async (req, res) => {
       }
     }
 
-    // If Gemini was unavailable or threw an authentication / quota error, deliver authoritative SHAT response
+    // If Gemini was unavailable or threw an authentication / quota error, deliver authoritative SCRTH response
     if (!aiText) {
-      aiText = generateFallbackShatResponse(message);
+      aiText = generateFallbackScrthResponse(message);
     }
 
     return res.json({ response: aiText });
   } catch (error: any) {
     console.error("Fitness Chat API Handler Error:", error);
-    const safeText = generateFallbackShatResponse(req.body?.message || "Fitness query");
+    const safeText = generateFallbackScrthResponse(req.body?.message || "Fitness query");
     return res.json({ response: safeText });
   }
 });
@@ -217,7 +219,7 @@ app.post("/api/analyze-diet", async (req, res) => {
       return res.status(503).json({ error: "AI service is not configured." });
     }
 
-    const prompt = `You are the nutritional core of the SHAT Coach system.
+    const prompt = `You are the nutritional core of the SCRTH system (START FROM SCRATCH).
 Analyze the user's typical daily food intake: '${dietDesc}' under their chosen dietary preference: '${dietPreference}'.
 Provide a highly realistic, hard-hitting, scientific, and direct nutritional critique. Tell them exactly where they are failing (e.g., too many simple carbs, low bioavailability of proteins, bad macro timings) and how to fix it with specific Indian staples (like paneer, egg whites, soya chunks, dal, double toned milk, chicken breast, etc.). Keep the tone direct, motivating, and professional, avoiding corporate fluff. Limit your response to 2-3 concise, hard-hitting sentences (about 50 words) in plain text.`;
 
@@ -248,7 +250,7 @@ app.post("/api/critique-split", async (req, res) => {
       return res.status(503).json({ error: "AI service is not configured." });
     }
 
-    const prompt = `You are the kinetic performance analyzer of the SHAT Coach system.
+    const prompt = `You are the kinetic performance analyzer of the SCRTH system.
 Critique the user's workout split: '${splitDesc}' (Training Location: ${fitnessStatus}).
 Provide a direct, high-octane physical analysis. Give specific critiques (e.g., recovery gaps, volume issues, structural imbalances, lack of progressive overload focus) and suggest 1 key actionable modification in direct Indian gym terms (e.g., compound priority, rest intervals, muscle group pairing). Keep it intense, motivating, and to the point. Limit to 2-3 concise, high-impact sentences.`;
 
@@ -275,7 +277,7 @@ app.post("/api/generate-roast", async (req, res) => {
       return res.status(503).json({ error: "AI service is not configured." });
     }
 
-    const prompt = `You are the SHAT Coach, an elite, honest, and uncompromising fitness mentor.
+    const prompt = `You are the SCRTH Coach, an elite, honest, and uncompromising personal growth and fitness mentor. Tagline: START FROM SCRATCH.
 The user's metrics are: Name: ${name}, Age: ${age}, Weight: ${weight}kg, Height: ${height}cm, BMI: ${bmi} (${bmiCategory}), Goal: ${currentGoal}.
 Deliver an intense, highly personalized, motivating tough-love roast of their current status and goal. If they are trying to Bulk/Maintain while overweight/obese, point out the biological folly (e.g. insulin resistance, packing fat on fat) in a tough but constructive way. If they are cut/thin and trying to Cut further, tell them to stop starving and start building density. Keep it incredibly direct, high-performance, and deeply motivational. Limit to 2-3 punchy, epic, or hard-hitting sentences. Do not use generic placeholders.`;
 

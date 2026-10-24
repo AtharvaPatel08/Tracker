@@ -28,7 +28,7 @@ const ExerciseItem = memo(({
           <div className="cursor-grab text-zinc-500 group-hover:text-white transition-colors">
             <GripVertical className="w-4 h-4" />
           </div>
-          <span className="font-shat-heading text-base font-light text-white uppercase tracking-wide">
+          <span className="font-scrth-heading text-base font-light text-white uppercase tracking-wide">
             {exercise.name}
           </span>
         </div>
@@ -681,7 +681,7 @@ export default function WorkoutSplit() {
 
       {/* Split Summary View */}
       <div className="mt-4 p-5 rounded-[10px] bg-[#121212] border border-white/10 flex flex-col gap-5">
-        <h3 className="text-base text-white tracking-wide uppercase font-shat-heading text-[18px]">
+        <h3 className="text-base text-white tracking-wide uppercase font-scrth-heading text-[18px]">
           Your Full Split Summary
         </h3>
         <div className="flex flex-col gap-2 border-t border-white/10 pt-2.5">

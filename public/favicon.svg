@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <rect width="128" height="128" rx="24" fill="#0A0A0A"/>
+  <!-- Subtle inner border for premium tech brand aesthetic -->
+  <rect x="2" y="2" width="124" height="124" rx="22" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="2"/>
+  <!-- Geometric SCRTH Monogram: Precision angular S with a dynamic fresh diagonal slash -->
+  <path d="M88 34 H44 C38.477 34 34 38.477 34 44 C34 49.523 38.477 54 44 54 H78 C86.837 54 94 61.163 94 70 C94 78.837 86.837 86 78 86 H34" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter"/>
+  <!-- Crisp diagonal scratch incision (starting fresh / scratch mark) -->
+  <line x1="88" y1="26" x2="36" y2="102" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-opacity="0.35"/>
+  <circle cx="88" cy="34" r="5" fill="#FFFFFF"/>
+</svg>

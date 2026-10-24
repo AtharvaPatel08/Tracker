@@ -156,7 +156,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
 
   // Initial greeting
   useEffect(() => {
-    addCoachMessage("Aadab! Namaste! I am your SHAT Coach. Science, Honesty, Adaptation, and Transformation are our pillars. I don't sugarcoat, I don't do corporate fluff. I build monsters. 💪");
+    addCoachMessage("Aadab! Namaste! I am your SCRTH Coach. START FROM SCRATCH — self-awareness, discipline, and continuous improvement are our foundation. I don't sugarcoat, I don't do corporate fluff. I build champions. 💪");
     setTimeout(() => {
       askQuestion("WELCOME");
     }, 1200);
@@ -704,7 +704,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
   };
 
   const handleOnboardingCompletion = () => {
-    addCoachMessage("Transmitting profile parameters to SHAT cloud core... ⚡");
+    addCoachMessage("Transmitting profile parameters to SCRTH cloud core... ⚡");
     
     if (userId) {
       setDoc(doc(db, "users", userId), { isOnboarded: true }, { merge: true }).catch(err => {
@@ -716,7 +716,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
       if (profile.hasActiveCycle && profile.gender === "Female") {
         addCoachMessage(`Alright! I've got your cycle mapped. First period alert coming in ${profile.cycleLength || 28} days. Workouts and nutrition will auto-adapt to menstrual, follicular, ovulation, and luteal phases.`);
       } else {
-        addCoachMessage(`Absolute profile mapped. S.H.A.T. system calibration complete. Let's destroy some weights.`);
+        addCoachMessage(`Absolute profile mapped. SCRTH system calibration complete. START FROM SCRATCH.`);
       }
 
       setTimeout(() => {
@@ -746,7 +746,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
           const stepInfo = matchingStep ? STEP_LABELS[matchingStep] : null;
           
           blocks.push({
-            overline: stepInfo?.overline || "SHAT Coach · Completed Step",
+            overline: stepInfo?.overline || "SCRTH Coach · Completed Step",
             question: msg.text,
             lines: splitTextIntoLines(nextMsg.text, 35),
             isCompleted: true
@@ -760,7 +760,7 @@ export default function Onboarding({ onComplete, fadeDuration, userId }: Onboard
           const stepInfo = matchingStep ? STEP_LABELS[matchingStep] : null;
           
           blocks.push({
-            overline: stepInfo?.overline || "SHAT Coach · Introduction",
+            overline: stepInfo?.overline || "SCRTH Coach · Introduction",
             question: stepInfo ? "Required Input" : "Coach Guidance",
             lines: splitTextIntoLines(msg.text, 35),
             isCompleted: !isLast

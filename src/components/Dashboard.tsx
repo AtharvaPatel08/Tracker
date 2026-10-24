@@ -98,6 +98,97 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
   // Badges state
   const [badges, setBadges] = useState<Badge[]>(BADGES_LIST);
 
+  // Progress photos state
+  const progressPhotoInputRef = useRef<HTMLInputElement | null>(null);
+  const [progressPhotos, setProgressPhotos] = useState<Array<{ id: string; url: string; date: string; notes?: string }>>(() => {
+    try {
+      const saved = localStorage.getItem("scrth_progress_photos");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const handleProgressPhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("Photo must be smaller than 5MB", "error");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      const newPhoto = {
+        id: `photo_${Date.now()}`,
+        url: base64,
+        date: getLocalDateString(),
+        notes: `Physique milestone (${streak}d streak)`
+      };
+      const updated = [newPhoto, ...progressPhotos];
+      setProgressPhotos(updated);
+      try {
+        localStorage.setItem("scrth_progress_photos", JSON.stringify(updated.slice(0, 8)));
+      } catch (err) {
+        console.warn("Storage quota reached:", err);
+      }
+      showToast("Physique photo logged // Stored securely", "success");
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  const handleDeletePhoto = (photoId: string) => {
+    const updated = progressPhotos.filter(p => p.id !== photoId);
+    setProgressPhotos(updated);
+    try {
+      localStorage.setItem("scrth_progress_photos", JSON.stringify(updated));
+    } catch {}
+    showToast("Progress photo removed", "info");
+  };
+
+  const handleDownloadReport = () => {
+    const today = getLocalDateString();
+    const rows: string[][] = [
+      ["SCRTH — START FROM SCRATCH. // ATHLETE PERFORMANCE REPORT"],
+      ["Report Generated", today],
+      ["Athlete Name", profile.name || "SCRTH Athlete"],
+      ["Primary Goal", profile.primaryGoal || "Bulk"],
+      ["Target Daily Calories", `${profile.calorieTarget} kcal`],
+      ["Target Daily Protein", `${profile.proteinTargetGrams} g`],
+      ["Current Active Streak", `${streak} Days`],
+      ["Today Check-In Status", checkInCompletedToday ? "Completed" : "Pending"],
+      ["Water Intake Today", `${waterGlasses} Glasses`],
+      ["Total Calories Logged Today", `${totalCaloriesLogged} kcal`],
+      ["Total Protein Logged Today", `${totalProteinLogged} g`],
+      [],
+      ["LOGGED MEALS BREAKDOWN"],
+      ["Meal ID", "Timestamp", "Meal Type", "Meal Name", "Calories (kcal)", "Protein (g)", "Carbs (g)", "Fats (g)"],
+      ...loggedMeals.map(m => [
+        m.id,
+        m.loggedAt || today,
+        m.mealType || "Custom",
+        `"${m.name.replace(/"/g, '""')}"`,
+        String(m.calories),
+        String(m.protein),
+        String(m.carbs || 0),
+        String(m.fats || 0)
+      ])
+    ];
+
+    const csvContent = rows.map(r => r.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `SCRTH_Fitness_Report_${profile.name ? profile.name.replace(/\s+/g, "_") : "Athlete"}_${today}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast("SCRTH performance report downloaded (.csv)", "success");
+  };
+
   // Elegant Toast notification state
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
 
@@ -609,7 +700,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto min-h-[85vh] bg-[#070707]/90 border border-white/10 rounded-none overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row shat-dashboard-wrapper">
+    <div className="w-full max-w-4xl mx-auto min-h-[85vh] bg-[#070707]/90 border border-white/10 rounded-none overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row scrth-dashboard-wrapper shat-dashboard-wrapper">
       
       {/* SIDEBAR NAVIGATION */}
       <aside className="w-full md:w-64 bg-[#0F0F0F]/95 border-b md:border-b-0 md:border-r border-white/10 p-4 sm:p-6 flex flex-col justify-between shrink-0">
@@ -617,8 +708,13 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
           {/* Logo & Mobile Streak Badge */}
           <div className="flex items-center justify-between mb-3 md:mb-8">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-none bg-transparent border border-white/20 flex items-center justify-center font-shat-main text-lg font-light text-white shadow-lg shadow-white/5">S</div>
-              <span className="font-shat-main text-base font-light tracking-widest text-white">S.H.A.T.</span>
+              <div className="w-8 h-8 rounded-none bg-[#161616] border border-white/20 flex items-center justify-center font-scrth-main text-base font-bold text-white shadow-lg shadow-white/5">
+                S
+              </div>
+              <div className="flex flex-col">
+                <span className="font-scrth-main text-base font-bold tracking-[0.2em] text-white leading-tight">SCRTH</span>
+                <span className="font-sans text-[7px] text-zinc-400 font-light tracking-[0.22em] uppercase leading-none">START FROM SCRATCH.</span>
+              </div>
             </div>
             <div className="md:hidden flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-sans text-[#A8A8A8]">
               🔥 {streak}d
@@ -648,7 +744,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               { id: "SUPPLEMENTS", label: "Supplements", icon: ShoppingBag },
               { id: "PROGRESS", label: "My Progress", icon: Award },
               ...(profile.hasActiveCycle && profile.gender === "Female" ? [{ id: "CYCLE_TRACKER", label: "Cycle Tracker", icon: Heart }] : []),
-              { id: "ASK_SHAT_AI", label: "Ask SHAT AI", icon: Sparkles },
+              { id: "ASK_SCRTH_AI", label: "Ask SCRTH AI", icon: Sparkles },
               { id: "SETTINGS", label: "Settings", icon: Settings }
             ].map((item) => {
               const Icon = item.icon;
@@ -704,7 +800,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">STATUS: COMMAND CENTER</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">DAILY INDEX</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">DAILY INDEX</h2>
                 </div>
                  <button
                   onClick={() => {
@@ -910,7 +1006,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">SPLIT MECHANICS</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">CALISTRUM ROUTINE</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">CALISTRUM ROUTINE</h2>
                 </div>
                 
                 {/* Zero Excuse Mode Toggle */}
@@ -962,7 +1058,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                     <span className="text-[10px] font-sans font-light text-[#555555] uppercase tracking-widest mb-1">
                       EXERCISE {zeIndex + 1} OF {ZERO_EXCUSE_ROUTINES[zeDifficulty].length}
                     </span>
-                    <h3 className="font-shat-main text-2xl font-light tracking-widest text-white uppercase">
+                    <h3 className="font-scrth-main text-2xl font-light tracking-widest text-white uppercase">
                       {ZERO_EXCUSE_ROUTINES[zeDifficulty][zeIndex].name}
                     </h3>
                     <p className="text-xs text-[#A8A8A8] max-w-md mt-2 leading-relaxed uppercase font-light">
@@ -1058,7 +1154,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">NUTRITION & MACROS</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">STAPLE MEAL PLAN</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">STAPLE MEAL PLAN</h2>
                 </div>
                 
                 {/* Visual Camera button */}
@@ -1204,7 +1300,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
             >
               <div className="flex flex-col items-start gap-3">
                 <span className="text-[10px] font-sans font-light tracking-[0.4em] text-[#555555] uppercase">05 // TIMING PROTOCOLS</span>
-                <h2 className="font-shat-main text-2xl font-light tracking-widest text-white uppercase mt-0.5">SUPPLEMENT PLANNERS</h2>
+                <h2 className="font-scrth-main text-2xl font-light tracking-widest text-white uppercase mt-0.5">SUPPLEMENT PLANNERS</h2>
                 <p className="text-[11px] text-[#A8A8A8] font-sans leading-relaxed uppercase font-light">
                   Accurate timing ensures maximum bioavailability and muscle protein synthesis. Connect to shopping gateways below for priority pan-India dispatch.
                 </p>
@@ -1382,15 +1478,23 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">MILESTONES & REWARDS</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">MILITARY LOGISTICS</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">MILITARY LOGISTICS</h2>
                 </div>
                 
                 {/* Photo Upload for storage */}
+                <input
+                  type="file"
+                  ref={progressPhotoInputRef}
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProgressPhotoUpload}
+                />
                 <button
-                  onClick={() => showToast("Upload progress photo trigger // Saved to Firebase Storage", "info")}
-                  className="px-4 py-2.5 rounded-none border border-white/20 bg-[#0F0F0F] hover:border-white hover:text-white text-[#A8A8A8] font-sans text-[9px] tracking-[0.2em] font-normal uppercase transition-all duration-300 cursor-pointer self-start sm:self-auto"
+                  onClick={() => progressPhotoInputRef.current?.click()}
+                  className="px-4 py-2.5 rounded-none border border-white/20 bg-[#0F0F0F] hover:border-white hover:text-white text-[#A8A8A8] font-sans text-[9px] tracking-[0.2em] font-normal uppercase transition-all duration-300 cursor-pointer self-start sm:self-auto flex items-center gap-2"
                 >
-                  UPLOAD PROGRESS PHOTO
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>UPLOAD PROGRESS PHOTO</span>
                 </button>
               </div>
 
@@ -1418,6 +1522,59 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                     {Math.round((totalProteinLogged / profile.proteinTargetGrams) * 100)}%
                   </span>
                 </div>
+              </div>
+
+              {/* Progress Photo Timeline Gallery */}
+              <div className="p-6 rounded-none bg-[#0F0F0F] border border-white/6 space-y-4">
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                  <div>
+                    <span className="text-[10px] font-sans font-light tracking-[0.2em] text-white uppercase block">ATHLETE TIMELINE // PHYSIQUE LOGS</span>
+                    <p className="text-[10px] text-[#555555] font-sans font-light uppercase mt-0.5">
+                      Visual record of physical adaptation and body composition milestones
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => progressPhotoInputRef.current?.click()}
+                    className="px-3 py-1.5 rounded-none border border-white/20 hover:border-white text-white font-sans text-[9px] tracking-[0.2em] uppercase font-light cursor-pointer self-start sm:self-auto flex items-center gap-1.5"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>ADD SNAPSHOT</span>
+                  </button>
+                </div>
+
+                {progressPhotos.length === 0 ? (
+                  <div className="py-8 border border-dashed border-white/10 text-center flex flex-col items-center justify-center gap-2">
+                    <Camera className="w-6 h-6 text-[#555555]" />
+                    <span className="text-xs text-[#555555] uppercase tracking-wider font-light">NO PHYSIQUE PHOTOS LOGGED YET</span>
+                    <button
+                      onClick={() => progressPhotoInputRef.current?.click()}
+                      className="text-[9px] text-[#A8A8A8] underline hover:text-white uppercase tracking-wider cursor-pointer mt-0.5 font-light"
+                    >
+                      LOG YOUR CURRENT STARTING PHYSIQUE (START FROM SCRATCH.)
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {progressPhotos.map((photo) => (
+                      <div key={photo.id} className="relative group border border-white/10 bg-[#0A0A0A] overflow-hidden">
+                        <img src={photo.url} alt="Progress milestone" className="w-full h-36 object-cover" />
+                        <div className="p-2 border-t border-white/6 flex justify-between items-center bg-[#070707]/90">
+                          <div>
+                            <span className="text-[8px] font-mono text-white block">{photo.date}</span>
+                            <span className="text-[7px] text-[#555555] uppercase block truncate max-w-[90px]">{photo.notes || "Check-in"}</span>
+                          </div>
+                          <button
+                            onClick={() => handleDeletePhoto(photo.id)}
+                            className="text-[#555555] hover:text-red-400 transition-colors p-1 cursor-pointer"
+                            title="Remove photo"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Gamification Badges Grid */}
@@ -1456,7 +1613,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="p-6 rounded-none bg-[#0F0F0F] border border-white/6 space-y-4">
                 <span className="text-[10px] font-sans font-light tracking-[0.2em] text-white uppercase block">WEEKLY COMPILATION INDEX (7-DAY DIET REPORT)</span>
                 <p className="text-[10px] text-[#555555] font-sans font-light leading-relaxed uppercase">
-                  Daily average caloric and protein consistency analysis. File format standard: Diet_Report_Atharva_2026.pdf
+                  Daily average caloric and protein consistency analysis. File format standard: SCRTH_Fitness_Report.csv
                 </p>
                 
                 {/* Simulated Chart */}
@@ -1482,13 +1639,13 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
                   ))}
                 </div>
 
-                <div className="flex justify-between items-center pt-2">
-                  <span className="text-[9px] font-sans font-light text-[#555555] uppercase tracking-wider">DIET REPORT DOWNLOADABLE SECTOR</span>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 pt-2">
+                  <span className="text-[9px] font-sans font-light text-[#555555] uppercase tracking-wider">DIET & PERFORMANCE DATA EXPORT</span>
                   <button 
-                    onClick={() => showToast("Generating report PDF... // Saved to local drive", "info")}
-                    className="text-[9px] font-sans text-white bg-white/4 border border-white/10 hover:border-white px-3 py-1.5 rounded-none hover:bg-white/10 transition-all duration-300 uppercase font-light tracking-wider cursor-pointer"
+                    onClick={handleDownloadReport}
+                    className="text-[9px] font-sans text-white bg-white/4 border border-white/10 hover:border-white px-3 py-1.5 rounded-none hover:bg-white/10 transition-all duration-300 uppercase font-light tracking-wider cursor-pointer self-start sm:self-auto"
                   >
-                    DOWNLOAD PDF/EXCEL REPORT
+                    DOWNLOAD PDF/EXCEL REPORT (.CSV)
                   </button>
                 </div>
               </div>
@@ -1508,7 +1665,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">PHASE_12 // CONDITION LOGS</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">CYCLE REACTION CENTER</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">CYCLE REACTION CENTER</h2>
                 </div>
                 
                 {/* Manual Log Period */}
@@ -1609,7 +1766,7 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 border-b border-white/6 pb-4">
                 <div>
                   <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">CONFIGURATION MANAGER</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">ATHLETE SETTINGS</h2>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">ATHLETE SETTINGS</h2>
                 </div>
                 <button
                   onClick={onLogout}
@@ -1730,10 +1887,10 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
             </motion.div>
           )}
 
-          {/* TAB 8: ASK SHAT AI (GEMINI CHATBOT) */}
-          {activeTab === "ASK_SHAT_AI" && (
+          {/* TAB 8: ASK SCRTH AI (GEMINI CHATBOT) */}
+          {activeTab === "ASK_SCRTH_AI" && (
             <motion.div 
-              key="ASK_SHAT_AI" 
+              key="ASK_SCRTH_AI" 
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
@@ -1741,8 +1898,8 @@ export default function Dashboard({ profile, onUpdateProfile, onLogout }: Dashbo
             >
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 border-b border-white/6 pb-4">
                 <div>
-                  <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">INTELLIGENT KINETICS // AI CORE</span>
-                  <h2 className="font-shat-main text-xl sm:text-2xl font-light tracking-widest text-white uppercase mt-0.5">ASK SHAT AI</h2>
+                  <span className="text-[10px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block">INTELLIGENT KINETICS // AI CORE · START FROM SCRATCH.</span>
+                  <h2 className="font-scrth-main text-xl sm:text-2xl font-bold tracking-widest text-white uppercase mt-0.5">ASK SCRTH AI</h2>
                 </div>
                 <span className="text-[9px] font-sans font-light text-[#555555] uppercase tracking-widest">
                   GEMINI 3.8 FLASH GROUNDED

@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-shat-main: "Playfair Display", serif;
-  --font-shat-tagline: "Playfair Display", serif;
+  --font-scrth-main: "Space Grotesk", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-scrth-wordmark: "Space Grotesk", "Outfit", sans-serif;
+  --font-scrth-heading: "Space Grotesk", "Outfit", sans-serif;
+  --font-scrth-tagline: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-shat-main: "Space Grotesk", "Outfit", sans-serif;
+  --font-shat-heading: "Space Grotesk", "Outfit", sans-serif;
+  --font-shat-tagline: "Outfit", sans-serif;
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --animate-platinum-pulse: platinumPulse 2s infinite;
 }
@@ -74,7 +79,8 @@
   animation: platinumPulse 2s infinite;
 }
 
-/* MATTE BLACK AND WHITE MONOCHROME THEME */
+/* MATTE BLACK AND WHITE MONOCHROME THEME FOR SCRTH */
+.scrth-dashboard-wrapper,
 .shat-dashboard-wrapper,
 .fixed.inset-0.bg-black\/85 {
   --color-surface-matte: #121212;
@@ -85,11 +91,13 @@
 }
 
 /* Override background colors of panels/cards */
+.scrth-dashboard-wrapper aside.bg-\[\#0F0F0F\]\/95,
 .shat-dashboard-wrapper aside.bg-\[\#0F0F0F\]\/95 {
   background-color: rgba(18, 18, 18, 0.96) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+.scrth-dashboard-wrapper .bg-\[\#0F0F0F\],
 .shat-dashboard-wrapper .bg-\[\#0F0F0F\],
 .fixed.inset-0 .bg-\[\#0F0F0F\] {
   background-color: #141414 !important;
@@ -97,23 +105,28 @@
   backdrop-filter: blur(14px);
 }
 
+.scrth-dashboard-wrapper .bg-\[\#0A0A0A\],
 .shat-dashboard-wrapper .bg-\[\#0A0A0A\],
 .fixed.inset-0 .bg-\[\#0A0A0A\] {
   background-color: #0A0A0A !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
+.scrth-dashboard-wrapper .bg-[#070707]/90,
 .shat-dashboard-wrapper .bg-[#070707]/90 {
   background-color: rgba(10, 10, 10, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Target element text updates */
+.scrth-dashboard-wrapper .text-white,
 .shat-dashboard-wrapper .text-white,
 .fixed.inset-0 .text-white {
   color: #FFFFFF !important;
 }
 
+.scrth-dashboard-wrapper .text-\[\#A8A8A8\],
+.scrth-dashboard-wrapper .text-neutral-400,
 .shat-dashboard-wrapper .text-\[\#A8A8A8\],
 .shat-dashboard-wrapper .text-neutral-400,
 .fixed.inset-0 .text-\[\#A8A8A8\] {
@@ -121,6 +134,7 @@
   opacity: 0.95;
 }
 
+.scrth-dashboard-wrapper .text-\[\#555555\],
 .shat-dashboard-wrapper .text-\[\#555555\],
 .fixed.inset-0 .text-\[\#555555\] {
   color: #71717A !important;
@@ -128,6 +142,11 @@
 }
 
 /* Border overrides */
+.scrth-dashboard-wrapper .border-white\/6,
+.scrth-dashboard-wrapper .border-white\/10,
+.scrth-dashboard-wrapper .border-white\/15,
+.scrth-dashboard-wrapper .border-white\/20,
+.scrth-dashboard-wrapper .border-b.border-white\/6,
 .shat-dashboard-wrapper .border-white\/6,
 .shat-dashboard-wrapper .border-white\/10,
 .shat-dashboard-wrapper .border-white\/15,
@@ -139,31 +158,38 @@
 }
 
 /* Button overrides */
+.scrth-dashboard-wrapper .bg-white,
 .shat-dashboard-wrapper .bg-white,
 .fixed.inset-0 .bg-white {
   background-color: #FFFFFF !important;
   color: #0A0A0A !important;
 }
 
+.scrth-dashboard-wrapper .bg-white\/4,
+.scrth-dashboard-wrapper .hover\:bg-white\/4:hover,
 .shat-dashboard-wrapper .bg-white\/4,
 .shat-dashboard-wrapper .hover\:bg-white\/4:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
 }
 
+.scrth-dashboard-wrapper .hover\:bg-white:hover,
 .shat-dashboard-wrapper .hover\:bg-white:hover {
   background-color: #E4E4E7 !important;
   color: #0A0A0A !important;
 }
 
+.scrth-dashboard-wrapper .text-\[\#070707\],
 .shat-dashboard-wrapper .text-\[\#070707\] {
   color: #0A0A0A !important;
 }
 
 /* Active range sliders and active progress meters */
+.scrth-dashboard-wrapper .accent-white,
 .shat-dashboard-wrapper .accent-white {
   accent-color: #FFFFFF !important;
 }
 
+.scrth-dashboard-wrapper .bg-gradient-to-r.from-\[\#555555\].to-white,
 .shat-dashboard-wrapper .bg-gradient-to-r.from-\[\#555555\].to-white {
   background-image: linear-gradient(to right, #52525B, #FFFFFF) !important;
 }

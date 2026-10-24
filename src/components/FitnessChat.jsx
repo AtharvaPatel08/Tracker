@@ -273,7 +273,7 @@ export default function FitnessChat() {
       // Append AI reply to thread
       setMessages(prev => [...prev, { role: "model", text: aiText }]);
     } catch (err) {
-      console.warn("SHAT AI Chat failure:", err);
+      console.warn("SCRTH AI Chat failure:", err);
       setErrorMsg("Something went wrong. Try again.");
     } finally {
       setLoading(false);
@@ -303,13 +303,13 @@ export default function FitnessChat() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
         <div>
           <h3 
-            className="font-light text-[22px] text-white uppercase tracking-wide leading-tight" 
-            style={{ fontFamily: "serif" }}
+            className="font-light text-[22px] text-white uppercase tracking-wider leading-tight" 
+            style={{ fontFamily: "Space Grotesk, Outfit, sans-serif" }}
           >
-            SHAT Coach Core
+            SCRTH Coach Core
           </h3>
-          <span className="text-[12px] font-sans font-normal text-zinc-400 block mt-0.5">
-            Science, Honesty, Adaptation, Transformation
+          <span className="text-[11px] font-sans font-light tracking-[0.25em] text-zinc-400 block mt-0.5 uppercase">
+            START FROM SCRATCH.
           </span>
         </div>
 
@@ -425,7 +425,7 @@ export default function FitnessChat() {
                 Select a quick topic above or ask custom questions.
               </p>
               <p className="text-[10px] text-zinc-400 tracking-[0.2em] font-sans font-medium uppercase mt-2">
-                SHAT AI: Grounded in Scientific Truth
+                SCRTH AI: Grounded in Scientific Truth &amp; Continuous Improvement
               </p>
             </div>
           </div>

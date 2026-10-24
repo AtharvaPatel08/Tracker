@@ -47,7 +47,7 @@ export default function Lanyard({
   lanyardImage,
   lanyardWidth = 1,
   textColor = '#ffffff',
-  cardName = 'S.H.A.T.'
+  cardName = 'SCRTH'
 }: LanyardProps) {
   return (
     <div className="w-full h-full relative" id="lanyard-canvas-container">

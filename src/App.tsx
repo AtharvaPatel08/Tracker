@@ -120,7 +120,7 @@ function FeatureCard({ icon: Icon, title, subtitle, description }: FeatureCardPr
       </div>
       <div>
         <span className="text-[9px] font-sans font-light tracking-[0.3em] text-[#A8A8A8] uppercase block mb-1">{subtitle}</span>
-        <h3 className="font-shat-main text-base font-light tracking-[0.3em] text-white mb-3 uppercase">{title}</h3>
+        <h3 className="font-scrth-main text-base font-light tracking-[0.3em] text-white mb-3 uppercase">{title}</h3>
         <p className="text-sm text-[#A8A8A8] leading-relaxed font-sans">{description}</p>
       </div>
     </motion.div>
@@ -178,13 +178,13 @@ export default function App() {
   // Compiled User Profile
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
-  const shatItems = [
+  const scrthNavItems = [
     {
       label: 'home',
       href: '#hero-section',
       ariaLabel: 'Home',
       rotation: -8,
-      hoverStyles: { bgColor: '#D4AF37', textColor: '#0a0a0a' },
+      hoverStyles: { bgColor: '#FFFFFF', textColor: '#0a0a0a' },
       onClick: (e: any) => {
         e.preventDefault();
         document.getElementById("hero-section")?.scrollIntoView({ behavior: "smooth" });
@@ -193,9 +193,9 @@ export default function App() {
     {
       label: 'about',
       href: '#valve-prop',
-      ariaLabel: 'About SHAT',
+      ariaLabel: 'About SCRTH',
       rotation: 8,
-      hoverStyles: { bgColor: '#D4AF37', textColor: '#0a0a0a' },
+      hoverStyles: { bgColor: '#FFFFFF', textColor: '#0a0a0a' },
       onClick: (e: any) => {
         e.preventDefault();
         document.getElementById("valve-prop")?.scrollIntoView({ behavior: "smooth" });
@@ -213,9 +213,9 @@ export default function App() {
       }
     },
     {
-      label: 'Ask SHAT AI',
-      href: '#ask-shat-ai',
-      ariaLabel: 'Ask SHAT AI',
+      label: 'Ask SCRTH AI',
+      href: '#ask-scrth-ai',
+      ariaLabel: 'Ask SCRTH AI',
       rotation: -3,
       hoverStyles: { bgColor: '#FFFFFF', textColor: '#0A0A0A' },
       onClick: (e: any) => {
@@ -223,7 +223,7 @@ export default function App() {
         if (currentUser) {
           setScreen("DASHBOARD");
           setTimeout(() => {
-            document.getElementById("ask-shat-ai")?.scrollIntoView({ behavior: "smooth" });
+            document.getElementById("ask-scrth-ai")?.scrollIntoView({ behavior: "smooth" });
           }, 100);
         } else {
           setScreen("LOGIN_SIGNUP");
@@ -243,7 +243,7 @@ export default function App() {
     }
   ];
 
-  const { displayed, done } = useTypewriter("Science. Honesty. Adaptation. Transformation.", 45, 300);
+  const { displayed, done } = useTypewriter("START FROM SCRATCH.", 45, 300);
   
   const video1Ref = React.useRef<HTMLVideoElement | null>(null);
   const video2Ref = React.useRef<HTMLVideoElement | null>(null);
@@ -979,13 +979,13 @@ export default function App() {
           ? "justify-start overflow-y-auto" 
           : "justify-center items-center"
       }`}
-      id="shat-viewport-root"
+      id="scrth-viewport-root"
     >
       {screen === "HERO" && (
         <BubbleMenu
-          logo={<span className="font-shat-main font-bold text-base tracking-[0.15em] text-white">SHAT</span>}
-          items={shatItems}
-          menuAriaLabel="Toggle SHAT navigation"
+          logo={<span className="font-scrth-main font-bold text-base tracking-[0.2em] text-white">SCRTH</span>}
+          items={scrthNavItems}
+          menuAriaLabel="Toggle SCRTH navigation"
           menuBg="rgba(18, 18, 18, 0.95)"
           menuContentColor="#FFFFFF"
           useFixedPosition={true}
@@ -1002,7 +1002,7 @@ export default function App() {
       >
         <video
           ref={video1Ref}
-          id="shat-video-bg-1"
+          id="scrth-video-bg-1"
           autoPlay
           muted
           playsInline
@@ -1012,7 +1012,7 @@ export default function App() {
         />
         <video
           ref={video2Ref}
-          id="shat-video-bg-2"
+          id="scrth-video-bg-2"
           muted
           playsInline
           style={{ opacity: 0, transition: `opacity ${fadeDuration}s ease-in-out` }}
@@ -1038,8 +1038,16 @@ export default function App() {
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="fixed top-0 left-0 w-full z-40 bg-[#0A0A0A]/85 backdrop-blur-md border-b border-white/10 py-3.5 sm:py-4 md:py-5 px-4 sm:px-6 md:px-12 flex justify-between items-center"
         >
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="font-shat-main text-xl sm:text-2xl font-light tracking-[0.15em] sm:tracking-[0.2em] bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">S.H.A.T.</span>
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#161616] border border-white/20 flex items-center justify-center font-scrth-main text-xs sm:text-sm font-bold text-white shadow-lg shadow-white/5">
+                S
+              </div>
+              <div className="flex flex-col">
+                <span className="font-scrth-main text-base sm:text-lg font-bold tracking-[0.2em] text-white leading-tight">SCRTH</span>
+                <span className="font-sans text-[7px] sm:text-[8px] text-zinc-400 font-light tracking-[0.24em] uppercase leading-none">START FROM SCRATCH.</span>
+              </div>
+            </div>
             <span className="h-4 w-[1px] bg-white/20 hidden md:inline-block" />
             <span id="active-modality-val" className="text-[9px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase hidden md:inline-block">
               CALIBRATING KINETICS...
@@ -1083,13 +1091,14 @@ export default function App() {
               onClick={() => setScreen(currentUser ? "DASHBOARD" : "HERO")}
               title="Click anywhere to continue"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-none bg-[#141414] border border-white/20 flex items-center justify-center font-shat-main text-4xl sm:text-5xl font-light text-white shadow-2xl mb-4 sm:mb-6">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-none bg-[#141414] border border-white/20 flex items-center justify-center font-scrth-main text-3xl sm:text-4xl font-bold text-white shadow-2xl mb-4 sm:mb-6 relative">
+                <div className="absolute top-0 right-0 w-2 h-2 bg-white" />
                 S
               </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-shat-main font-extralight tracking-[0.18em] sm:tracking-[0.2em] bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent uppercase select-none">
-                S.H.A.T.
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-scrth-main font-bold tracking-[0.22em] sm:tracking-[0.25em] bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent uppercase select-none">
+                SCRTH
               </h1>
-              <p className="font-shat-tagline text-sm sm:text-base md:text-lg italic text-zinc-300 font-light mt-3 sm:mt-4 min-h-[30px] select-none uppercase tracking-[0.2em] sm:tracking-[0.3em] px-4">
+              <p className="font-scrth-main text-xs sm:text-sm md:text-base text-zinc-300 mt-3 sm:mt-4 min-h-[30px] select-none uppercase tracking-[0.28em] sm:tracking-[0.32em] px-4 font-medium">
                 {displayed}
                 {!done && (
                   <span className="inline-block w-[2px] h-[1.1em] bg-white align-middle ml-[2px] animate-blink" />
@@ -1138,53 +1147,62 @@ export default function App() {
 
                 <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-12 relative z-10">
                   <motion.div
-                    id="shat-branding-wrapper"
-                    className="relative group cursor-pointer w-full md:max-w-[50%] lg:max-w-[46%] flex flex-col items-start"
+                    id="scrth-branding-wrapper"
+                    className="relative group cursor-pointer w-full md:max-w-[50%] lg:max-w-[48%] flex flex-col items-start"
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                   >
-                    {/* S.H.A.T. massive horizontal metallic silver 3D typography */}
-                    <motion.div variants={itemVariants} className="w-full flex items-start">
+                    {/* Category Pre-header */}
+                    <motion.div variants={itemVariants} className="flex items-center gap-2 mb-2 sm:mb-3">
+                      <div className="w-2 h-2 bg-white" />
+                      <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.28em] text-zinc-400 uppercase font-light">
+                        SELF-DEVELOPMENT // KINETIC DISCIPLINE
+                      </span>
+                    </motion.div>
+
+                    {/* SCRTH distinctive modern geometric wordmark - balanced medium weight (more than thin, less than thick) */}
+                    <motion.div variants={itemVariants} className="w-auto flex items-start">
                       <h1 
-                        id="shat-title"
-                        className="text-[36px] min-[380px]:text-[44px] sm:text-[64px] md:text-[84px] lg:text-[98px] font-shat-main font-extralight leading-none select-none transition-all duration-700 relative flex items-baseline tracking-[0.14em] min-[380px]:tracking-[0.18em] sm:tracking-[0.2em]"
+                        id="scrth-title"
+                        className="text-[34px] min-[380px]:text-[44px] sm:text-[58px] md:text-[70px] lg:text-[82px] font-scrth-main font-medium leading-none select-none transition-all duration-700 relative flex items-baseline tracking-[0.02em] sm:tracking-[0.03em]"
                         style={{
                           textShadow: hovered 
-                            ? "0 1px 0 #71717a, 0 2px 0 #52525b, 0 3px 0 #3f3f46, 0 4px 0 #27272a, 0 5px 0 #18181b, 0 6px 1px rgba(0,0,0,.6), 0 0 10px rgba(255,255,255,.2)"
-                            : "0 1px 0 #52525b, 0 2px 0 #3f3f46, 0 3px 0 #27272a, 0 4px 0 #18181b, 0 5px 0 #09090b, 0 6px 1px rgba(0,0,0,.6)",
-                          transform: hovered ? "skewX(-3deg) rotateX(10deg)" : "skewX(-1.5deg) rotateX(5deg)",
+                            ? "0 2px 12px rgba(255,255,255,0.25), 0 4px 20px rgba(0,0,0,0.85)"
+                            : "0 2px 8px rgba(0,0,0,0.75)",
+                          transform: hovered ? "skewX(-1deg) rotateX(4deg)" : "none",
                           perspective: "1000px"
                         }}
                       >
                         <span className="bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">S</span>
-                        <span className="bg-gradient-to-br from-zinc-200 via-white to-zinc-300 bg-clip-text text-transparent hover:brightness-110 duration-300">H</span>
-                        <span className="bg-gradient-to-br from-white via-zinc-300 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">A</span>
-                        <span className="bg-gradient-to-br from-zinc-300 via-white to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300 font-extrabold">T</span>
+                        <span className="bg-gradient-to-br from-zinc-200 via-white to-zinc-300 bg-clip-text text-transparent hover:brightness-110 duration-300">C</span>
+                        <span className="bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">R</span>
+                        <span className="bg-gradient-to-br from-zinc-200 via-white to-zinc-300 bg-clip-text text-transparent hover:brightness-110 duration-300">T</span>
+                        <span className="bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent hover:brightness-110 duration-300">H</span>
+                        <span className="inline-block w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white ml-1.5 sm:ml-2 mb-1 sm:mb-1.5 align-baseline opacity-90" />
                       </h1>
                     </motion.div>
 
                     {/* Tagline showing below */}
-                    <div className="flex flex-col items-start gap-4 sm:gap-6 mt-4 sm:mt-6 w-full">
+                    <div className="flex flex-col items-start gap-4 sm:gap-5 mt-3 sm:mt-5 w-full">
                       <motion.div 
                         variants={itemVariants}
-                        id="shat-tagline-wrapper"
-                        className="w-full max-w-full pl-3 pr-4 py-2.5 sm:pl-4 sm:pr-6 sm:py-3 transition-all duration-500 rounded-none bg-[#141414]/90 backdrop-blur-md border border-white/10 shadow-2xl inline-block overflow-hidden"
+                        id="scrth-tagline-wrapper"
+                        className="w-fit max-w-full pl-3 pr-4 py-2 sm:pl-3.5 sm:pr-5 sm:py-2.5 transition-all duration-500 rounded-none bg-[#141414]/90 backdrop-blur-md border border-white/10 shadow-2xl inline-block overflow-hidden"
                         style={{
-                          letterSpacing: "0.2em",
-                          transform: hovered ? "translateX(10px)" : "translateX(0px)"
+                          letterSpacing: "0.14em",
+                          transform: hovered ? "translateX(6px)" : "translateX(0px)"
                         }}
                       >
                         <p 
-                          id="shat-tagline"
-                          className="font-shat-tagline mb-0 text-white tracking-normal select-none uppercase break-words"
+                          id="scrth-tagline"
+                          className="font-scrth-main mb-0 text-white tracking-[0.14em] sm:tracking-[0.16em] select-none uppercase break-words font-semibold"
                           style={{
-                            fontSize: "clamp(13px, 3.8vw, 24px)",
+                            fontSize: "clamp(12px, 3.2vw, 18px)",
                             lineHeight: "1.35",
-                            fontWeight: "300",
-                            minHeight: "32px"
+                            minHeight: "26px"
                           }}
                         >
                           {displayed}
@@ -1199,8 +1217,8 @@ export default function App() {
 
                       <motion.div variants={itemVariants} className="w-full">
                         <BlurText
-                          text="The master key to kinetic training acceleration. Control resistance, inertia, and 3D balance vectors effortlessly through high-intensity rotational mechanics."
-                          delay={40}
+                          text="Understand yourself, break old habits, and build an uncompromising version of yourself through intentional action. A modern personal growth and self-development platform focused on self-awareness, discipline, and continuous improvement."
+                          delay={35}
                           animateBy="words"
                           direction="bottom"
                           className="max-w-xl text-xs sm:text-sm leading-[1.8] sm:leading-[1.9] text-zinc-400 font-sans font-light pr-0 sm:pr-6"
@@ -1256,7 +1274,7 @@ export default function App() {
                       </div>
                       <span 
                         id="dumbbell-badge-deg"
-                        className="font-shat-main text-[10px] sm:text-xs font-light tracking-[0.2em] text-white bg-[#0A0A0A]/90 border border-white/20 px-2.5 py-0.5"
+                        className="font-scrth-main text-[10px] sm:text-xs font-light tracking-[0.2em] text-white bg-[#0A0A0A]/90 border border-white/20 px-2.5 py-0.5"
                       >
                         0° ROTATION
                       </span>
@@ -1313,14 +1331,14 @@ export default function App() {
                     delay={100}
                     animateBy="letters"
                     direction="top"
-                    className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
+                    className="font-scrth-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                   />
                   <BlurText
                     text="*Engineered loops constructed for elite stabilization.*"
                     delay={40}
                     animateBy="words"
                     direction="bottom"
-                    className="font-shat-tagline text-base sm:text-xl italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
+                    className="font-scrth-tagline text-base sm:text-xl italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
                   />
                 </div>
 
@@ -1436,7 +1454,7 @@ export default function App() {
 
                       {/* Big Live Rotation degrees updated in RAF */}
                       <div className="py-6 sm:py-8 border-y border-white/10 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
-                        <span id="active-deg-val" className="font-shat-main text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.16em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 text-center">
+                        <span id="active-deg-val" className="font-scrth-main text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.16em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 text-center">
                           0° ROTATION
                         </span>
                         <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.2em] sm:tracking-[0.3em] text-zinc-400 uppercase mt-1 text-center">
@@ -1599,14 +1617,14 @@ export default function App() {
                       delay={40}
                       animateBy="words"
                       direction="top"
-                      className="font-shat-main text-2xl sm:text-3xl md:text-4xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase leading-tight"
+                      className="font-scrth-main text-2xl sm:text-3xl md:text-4xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase leading-tight"
                     />
                     <BlurText
                       text="*Our rotational series introduces absolute control over vector acceleration.*"
                       delay={30}
                       animateBy="words"
                       direction="bottom"
-                      className="font-shat-tagline text-base sm:text-xl italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
+                      className="font-scrth-tagline text-base sm:text-xl italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
                     />
                     <BlurText
                       text="Move your mouse or drag on mobile to control the virtual dumbbell backdrop above. The active system measures absolute position offsets in microseconds, delivering seamless transitions between forward acceleration and heavy recoil balancing loops."
@@ -1652,14 +1670,14 @@ export default function App() {
                     delay={80}
                     animateBy="words"
                     direction="top"
-                    className="font-shat-main text-xl sm:text-2xl md:text-3xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
+                    className="font-scrth-main text-xl sm:text-2xl md:text-3xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                   />
                   <BlurText
                     text="*Explore anatomical designs of high-intensity rotational core units. Drag horizontally or scroll to rotate the 3D projection ring.*"
                     delay={25}
                     animateBy="words"
                     direction="bottom"
-                    className="font-shat-tagline text-xs sm:text-sm italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
+                    className="font-scrth-tagline text-xs sm:text-sm italic text-zinc-300 font-light leading-[1.8] sm:leading-[1.9]"
                   />
                 </div>
 
@@ -1709,14 +1727,14 @@ export default function App() {
                       delay={40}
                       animateBy="words"
                       direction="top"
-                      className="font-shat-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
+                      className="font-scrth-main text-2xl sm:text-4xl lg:text-5xl font-extralight tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase"
                     />
                     <BlurText
                       text="*Slots within elite production loops are strictly managed.*"
                       delay={30}
                       animateBy="words"
                       direction="bottom"
-                      className="font-shat-tagline text-base sm:text-lg italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
+                      className="font-scrth-tagline text-base sm:text-lg italic text-zinc-300 font-light mt-1 leading-[1.8] sm:leading-[1.9]"
                     />
                     <BlurText
                       text="Sign up below to receive absolute access keys, launch specifications, and exclusive hardware priority allotments."
@@ -1772,13 +1790,13 @@ export default function App() {
                       onClick={() => setScreen("LOGIN_SIGNUP")}
                       className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-none bg-white hover:bg-zinc-200 text-black font-sans font-semibold text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-all duration-300 shadow-xl shadow-white/5 flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>LAUNCH S.H.A.T. PORTAL NOW</span>
+                      <span>LAUNCH SCRTH PORTAL NOW</span>
                       <ArrowRight className="w-4 h-4 shrink-0" />
                     </button>
                   </div>
 
                   <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-500 uppercase">
-                    CONFIDENTIAL // COMPLIANCE REGISTERED
+                    CONFIDENTIAL // SCRTH MATRIX REGISTERED
                   </span>
                 </div>
               </motion.section>
@@ -1787,10 +1805,15 @@ export default function App() {
               <footer className="relative z-10 w-full border-t border-white/10 bg-[#0A0A0A]/90 backdrop-blur-md py-8 sm:py-12 px-4 sm:px-6 md:px-12 lg:px-24">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
                   
-                  <div className="flex flex-col items-center md:items-start gap-1 sm:gap-2 text-center md:text-left">
-                    <span className="font-shat-main text-base sm:text-lg font-light tracking-[0.2em] text-white">S.H.A.T.</span>
-                    <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-500 uppercase">
-                      ATTACK LINE // CINEMATIC SERIES
+                  <div className="flex flex-col items-center md:items-start gap-1 sm:gap-1.5 text-center md:text-left">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-[#161616] border border-white/20 flex items-center justify-center font-scrth-main text-xs font-bold text-white">
+                        S
+                      </div>
+                      <span className="font-scrth-main text-base sm:text-lg font-bold tracking-[0.2em] text-white">SCRTH</span>
+                    </div>
+                    <span className="text-[8px] sm:text-[9px] font-sans font-light tracking-[0.25em] sm:tracking-[0.3em] text-zinc-400 uppercase">
+                      START FROM SCRATCH.
                     </span>
                   </div>
 
@@ -1801,8 +1824,8 @@ export default function App() {
                     >
                       TOP ^
                     </button>
-                    <span>&copy; 2026 S.H.A.T. KINETICS</span>
-                    <span>INT_REF_360</span>
+                    <span>&copy; 2026 SCRTH. ALL RIGHTS RESERVED.</span>
+                    <span>START FROM SCRATCH.</span>
                   </div>
 
                 </div>
@@ -1822,8 +1845,8 @@ export default function App() {
                 className="w-full max-w-[320px] sm:max-w-[340px] p-5 sm:p-6 rounded-none bg-[#141414]/95 border border-white/15 shadow-2xl flex flex-col gap-3.5 backdrop-blur-md"
               >
                 <div className="text-center">
-                  <span className="text-[8px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase block">SECURED INTERFACE</span>
-                  <h2 className="text-xl font-shat-main font-extralight tracking-[0.2em] text-white mt-1">S.H.A.T. LAUNCH</h2>
+                  <span className="text-[8px] font-sans font-light tracking-[0.3em] text-zinc-400 uppercase block">START FROM SCRATCH.</span>
+                  <h2 className="text-xl font-scrth-main font-bold tracking-[0.2em] text-white mt-1">SCRTH LAUNCH</h2>
                 </div>
 
                 <form onSubmit={handleAuthSubmit} className="space-y-2.5">
@@ -1967,17 +1990,21 @@ export default function App() {
                 <WorkoutSplit />
               </div>
 
-              {/* Ask SHAT AI Section */}
+              {/* Ask SCRTH AI Section */}
               <section 
-                id="ask-shat-ai" 
+                id="ask-scrth-ai" 
                 className="w-full max-w-[780px] mx-auto bg-transparent text-white px-4 py-8 sm:px-8 sm:py-14 md:px-14 md:py-20"
               >
-                <h2 
-                  className="text-2xl sm:text-3xl md:text-[36px] font-serif font-light text-white mb-2" 
-                  style={{ fontFamily: "serif" }}
-                >
-                  Ask SHAT AI
-                </h2>
+                <div className="mb-2">
+                  <span className="font-sans text-[9px] font-light tracking-[0.28em] text-zinc-400 uppercase block">
+                    START FROM SCRATCH.
+                  </span>
+                  <h2 
+                    className="text-2xl sm:text-3xl md:text-[36px] font-scrth-main font-bold text-white tracking-wide mt-1" 
+                  >
+                    Ask SCRTH AI
+                  </h2>
+                </div>
                 <p 
                   className="font-sans text-xs sm:text-[14px] leading-relaxed mb-6 sm:mb-10 text-zinc-400" 
                 >

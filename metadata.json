@@ -1,6 +1,6 @@
 {
-  "name": "Remix: mėntality",
-  "description": "A cinematic mental health platform offering premium resources and interactive tools to help you manage your personal wellbeing.",
+  "name": "SCRTH",
+  "description": "SCRTH — START FROM SCRATCH. A modern personal growth and self-development platform focused on self-awareness, discipline, productivity, emotional intelligence, and continuous improvement.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
